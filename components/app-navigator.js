@@ -1,8 +1,14 @@
 import { createStackNavigator } from 'react-navigation';
-import HomeScreen from './home-screen';
+import HomeScreen from './screens/home';
+import SearchResultsScreen from './screens/search-results';
 
 export default createStackNavigator({
-  Home: {
-    screen: HomeScreen
-  }
+  home: {
+    screen: HomeScreen,
+  },
+  searchResults: {
+    screen: SearchResultsScreen,
+  },
+}, {
+  initialRouteName: 'home',
 });
