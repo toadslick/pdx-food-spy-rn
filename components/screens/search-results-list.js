@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 
-export default class SearchResultsScreen extends Component {
+export default class SearchResultsList extends Component {
   static navigationOptions = {
-    title: 'Search Results',
+    tabBarLabel: 'List',
   };
 
   render() {
     return (
       <View>
-        <Text>Search Results Screen</Text>
+        <Text>Search Results List</Text>
       </View>
     );
   }
