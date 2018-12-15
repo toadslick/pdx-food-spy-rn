@@ -2,18 +2,6 @@ import React, { Component } from 'react';
 import { Text, View, Button } from 'react-native';
 
 export default class HomeScreen extends Component {
-
-  static navigationOptions = ({ navigation }) => {
-    return {
-      headerRight: (
-        <Button
-          onPress={() => navigation.navigate('searchResults')}
-          title="Results"
-        />
-      ),
-    };
-  };
-
   render() {
     return (
       <View>
