@@ -29,25 +29,54 @@ export default class HomeScreen extends Component {
   render() {
     return (
       <View>
-        <Text>
+        <Text
+          style={ styles.title }
+        >
           Find Inspections for Portland Restaurants
           </Text>
-        <Text>
+        <Text
+          style={ styles.label }
+        >
           Search by:
         </Text>
         <SegmentedControlIOS
+          style={ styles.searchOptions }
           values={ SEARCH_TYPE_KEYS }
           selectedIndex={ this.state.searchTypeIndex }
           onChange={ this.searchTypeSelected.bind(this) }
         />
-        <Text>
+        <Text
+          style={ styles.label }
+        >
           or...
         </Text>
         <Button
-          title='Near My Current Location'
+          style={ styles.button }
+          title='Search My Current Location'
           onPress={ this.searchCurrentLocation.bind(this) }
         />
       </View>
     );
   }
 }
+
+const styles = {
+  title: {
+    textAlign: 'center',
+    fontSize: 30,
+    margin: 15,
+  },
+  label: {
+    textAlign: 'center',
+    fontWeight: '500',
+    fontSize: 20,
+    margin: 15,
+  },
+  searchOptions: {
+    margin: 15,
+  },
+  button: {
+    margin: 15,
+    fontWeight: 'bold',
+  },
+};
