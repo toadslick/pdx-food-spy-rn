@@ -3,13 +3,18 @@ export default class APIRequest {
 
   fetch(query) {
     const url = this.buildURL(query);
-    console.log('FETCH:', url);
-    return fetch(url).then(this.parseResponse.bind(this));
+    const params = this.buildQueryParams(query);
+    return fetch(url, params).then(this.parseResponse.bind(this));
   }
 
   // Override me in extending classes.
   buildURL(query) {
     return rootURL;
+  }
+
+  // Override me in extending classes.
+  buildQueryParams(query) {
+    return {};
   }
 
   parseResponse(response) {
