@@ -19,25 +19,26 @@ export default class HomeScreen extends Component {
     this.state = {
       isBusy: false,
       searchTypeIndex: 0,
-      searchQuery: null,
     };
   }
 
-  searchTypeSelected(event) {
-    const index = event.nativeEvent.selectedSegmentIndex;
-    this.setState({ searchTypeIndex: index });
+  searchTypeSelected({ nativeEvent: { selectedSegmentIndex }}) {
+    this.setState({ searchTypeIndex: selectedSegmentIndex });
   }
 
   searchCurrentLocation() {
   }
 
-  searchQueryChanged(value) {
-    this.setState({ searchQuery: value });
+  searchQuerySubmitted({ nativeEvent: { text }}) {
+    const search = SEARCH_TYPES[this.state.searchTypeIndex];
+    console.log(`Performing search. Type: "${search.title}" Query: "${text}"`);
   }
 
   render() {
     return (
-      <View>
+      <View
+        style={ styles.container }
+      >
         <Text
           style={ styles.title }
         >
@@ -48,34 +49,43 @@ export default class HomeScreen extends Component {
         >
           Search by:
         </Text>
-        <SegmentedControlIOS
-          style={ styles.searchOptions }
-          values={ SEARCH_TYPES.map((option) => option.title) }
-          selectedIndex={ this.state.searchTypeIndex }
-          onChange={ this.searchTypeSelected.bind(this) }
-        />
-        <TextInput
-        style={ styles.searchQuery }
-          onChangeText={ this.searchQueryChanged.bind(this) }
-          value={ this.state.searchQuery }
-          placeholder={ SEARCH_TYPES[this.state.searchTypeIndex].placeholder }
-          editable={ !this.state.isBusy }
-        />
+        <View
+          style={ styles.fieldset }
+        >
+          <SegmentedControlIOS
+            style={ styles.searchOptions }
+            values={ SEARCH_TYPES.map((option) => option.title) }
+            selectedIndex={ this.state.searchTypeIndex }
+            onChange={ this.searchTypeSelected.bind(this) }
+          />
+          <TextInput
+            style={ styles.searchQuery }
+            onSubmitEditing={ this.searchQuerySubmitted.bind(this) }
+            placeholder={ SEARCH_TYPES[this.state.searchTypeIndex].placeholder }
+            editable={ !this.state.isBusy }
+            enablesReturnKeyAutomatically
+            placeholderTextColor={ styles.searchQuery.borderColor }
+          />
+        </View>
         <Text
           style={ styles.label }
         >
           or...
         </Text>
-        <Button
-          style={ styles.button }
-          title='Search My Current Location'
-          onPress={ this.searchCurrentLocation.bind(this) }
-          disabled={ this.state.isBusy }
-        />
+        <View
+          style={ styles.fieldset }
+        >
+          <Button
+            style={ styles.button }
+            title='Search My Current Location'
+            onPress={ this.searchCurrentLocation.bind(this) }
+            disabled={ this.state.isBusy }
+          />
+        </View>
         <ActivityIndicator
           style={ styles.spinner }
           size='large'
-          hidesWhenStopped='true'
+          hidesWhenStopped
           animating={ this.state.isBusy }
         />
       </View>
@@ -84,6 +94,11 @@ export default class HomeScreen extends Component {
 }
 
 const styles = {
+  container: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    backgroundColor: '#f7f7f7',
+  },
   title: {
     textAlign: 'center',
     fontSize: 30,
@@ -94,6 +109,12 @@ const styles = {
     fontWeight: '500',
     fontSize: 20,
     margin: 15,
+  },
+  fieldset: {
+    backgroundColor: '#fff',
+    borderColor: '#e3e3e3',
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
   },
   searchOptions: {
     marginTop: 15,
@@ -111,10 +132,12 @@ const styles = {
     borderRadius: 4,
     padding: 10,
     textAlign: 'center',
+    backgroundColor: '#fff',
   },
   button: {
     margin: 15,
     fontWeight: 'bold',
+    backgroundColor: '#fff',
   },
   spinner: {
     marginTop: 40,
