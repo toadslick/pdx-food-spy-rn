@@ -32,6 +32,14 @@ export default class HomeScreen extends Component {
   searchQuerySubmitted({ nativeEvent: { text }}) {
     const search = SEARCH_TYPES[this.state.searchTypeIndex];
     console.log(`Performing search. Type: "${search.title}" Query: "${text}"`);
+    this.setState({ isBusy: true });
+    search.request.fetch(text).then((result) => {
+      console.log('Search was successful. Results:', result);
+    }, (...err) => {
+      console.log('Search failed.', ...err);
+    }).finally(() => {
+      this.setState({ isBusy: false });
+    });
   }
 
   render() {

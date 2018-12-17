@@ -5,7 +5,7 @@ export default class APIRequest {
   preflight(query) { return Promise.resolve(query); }
 
   // Build the request URL from the given query.
-  buildURL(query) { return rootURL; }
+  buildURL(query) { return this.rootURL; }
 
   // Build the request query parameters from the given query.
   buildQueryParams(query) { return {}; }
@@ -18,24 +18,40 @@ export default class APIRequest {
   }
 
   request(query) {
-    const url = this.buildURL(query);
+    let url = this.buildURL(query);
     const params = this.buildQueryParams(query);
-    return fetch(url, params).then(this.parseResponse.bind(this));
+
+    const queryString = Object.keys(params).map(function(key) {
+      return encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
+    }).join('&');
+
+    if (queryString) {
+      url = `${url}?${queryString}`;
+    }
+
+    console.log('Sending API request. URL:', url);
+    return fetch(url, params)
+      .then((response) => response.json())
+      .then(this.parseJSON.bind(this));
   }
 
-  parseResponse(response) {
+  parseJSON(json) {
+    console.log(`API response received. JSON:`, json);
+
     // The Civic Apps API will only include a `results` key
     // if the request succeeded and did not return an empty set.
-    const results = response.json()['results'];
+    const results = json['results'];
     if (results) {
 
-      // If `results` is not an array, deserialize the entire object.
-      if (results.length >= 0) {
-        return this.deserialize(results);
-
       // If results is an array, deserialize each item in the array.
-      } else {
+      if (results.length >= 0) {
+        console.log('Deserialize JSON object:', results);
         return results.map(this.deserialize);
+
+      // If `results` is not an array, deserialize the entire object.
+      } else {
+        console.log('Deserialize JSON array:', results);
+        return this.deserialize(results);
       }
 
     // Throw an exception on an empty set of results.
