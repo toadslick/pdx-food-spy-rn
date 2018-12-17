@@ -35,6 +35,7 @@ export default class HomeScreen extends Component {
     this.setState({ isBusy: true });
     search.request.fetch(text).then((results) => {
       console.log('Search was successful. Results:', results);
+      this.props.navigation.navigate('searchResults', { results });
     }, (...err) => {
       console.log('Search failed.', ...err);
     }).finally(() => {
