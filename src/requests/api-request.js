@@ -13,6 +13,9 @@ export default class APIRequest {
   // Deserialize each result object returned by a successful response.
   deserialize(object) { return object; }
 
+  // Handle any post-processing, such as filtering or ordering, of the deserialized result.
+  postflight(results) { return results; }
+
   fetch(query) {
     return this.preflight(query).then(this.request.bind(this));
   }
@@ -42,18 +45,20 @@ export default class APIRequest {
     // if the request succeeded and did not return an empty set.
     const results = json['results'];
     if (results) {
+      let deserializedResults;
 
       // If results is an array, deserialize each item in the array.
       if (results.length >= 0) {
         console.log('Deserialize JSON object:', results);
-        return results.map(this.deserialize);
+        deserializedResults = results.map(this.deserialize);
 
       // If `results` is not an array, deserialize the entire object.
       } else {
         console.log('Deserialize JSON array:', results);
-        return this.deserialize(results);
+        deserializedResults = this.deserialize(results);
       }
 
+      return this.postflight(deserializedResults);
     // Throw an exception on an empty set of results.
     } else {
       throw 'No results were found.';
