@@ -1,20 +1,26 @@
 export default class APIRequest {
   rootURL = 'http://api.civicapps.org/restaurant-inspections/';
 
+  // Used to handle async behavior needed before the request, such as geocoding.
+  preflight(query) { return Promise.resolve(query); }
+
+  // Build the request URL from the given query.
+  buildURL(query) { return rootURL; }
+
+  // Build the request query parameters from the given query.
+  buildQueryParams(query) { return {}; }
+
+  // Deserialize each result object returned by a successful response.
+  deserialize(object) { return object; }
+
   fetch(query) {
+    return this.preflight(query).then(this.request.bind(this));
+  }
+
+  request(query) {
     const url = this.buildURL(query);
     const params = this.buildQueryParams(query);
     return fetch(url, params).then(this.parseResponse.bind(this));
-  }
-
-  // Override me in extending classes.
-  buildURL(query) {
-    return rootURL;
-  }
-
-  // Override me in extending classes.
-  buildQueryParams(query) {
-    return {};
   }
 
   parseResponse(response) {
@@ -32,14 +38,9 @@ export default class APIRequest {
         return results.map(this.deserialize);
       }
 
-    // Raise an exception on an empty set of results.
+    // Throw an exception on an empty set of results.
     } else {
-      raise 'No results were found.';
+      throw 'No results were found.';
     }
-  }
-
-  // Override me in extending classes.
-  deserialize(object) {
-    return object;
   }
 }

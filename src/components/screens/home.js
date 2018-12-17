@@ -11,16 +11,7 @@ import {
   TextInput,
 } from 'react-native';
 
-const SEARCH_TYPES = [
-  {
-    title: 'Street Address',
-    placeholder: 'Enter a Portland Street Address',
-  },
-  {
-    title: 'Restaurant Name',
-    placeholder: 'Enter a Restaurant Name',
-  },
-];
+import SEARCH_TYPES from '../../utils/search-types';
 
 export default class HomeScreen extends Component {
   constructor(props) {
