@@ -25,4 +25,8 @@ export default class SearchByAddress extends APIRequest {
   deserialize(object) {
     return SearchResult.fromJSON(object);
   }
+
+  postflight(results) {
+    return filterSearchResults(results);
+  }
 }

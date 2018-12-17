@@ -49,16 +49,20 @@ export default class APIRequest {
 
       // If results is an array, deserialize each item in the array.
       if (results.length >= 0) {
-        console.log('Deserialize JSON object:', results);
+        console.log('Deserialize JSON array:', results);
         deserializedResults = results.map(this.deserialize);
 
       // If `results` is not an array, deserialize the entire object.
       } else {
-        console.log('Deserialize JSON array:', results);
+        console.log('Deserialize JSON object:', results);
         deserializedResults = this.deserialize(results);
       }
 
-      return this.postflight(deserializedResults);
+      // Last but not least, pass the results through the postflight function.
+      const postflightResults = this.postflight(deserializedResults);
+      console.log('Postflight results:', postflightResults);
+      return postflightResults;
+
     // Throw an exception on an empty set of results.
     } else {
       throw 'No results were found.';

@@ -33,8 +33,8 @@ export default class HomeScreen extends Component {
     const search = SEARCH_TYPES[this.state.searchTypeIndex];
     console.log(`Performing search. Type: "${search.title}" Query: "${text}"`);
     this.setState({ isBusy: true });
-    search.request.fetch(text).then((result) => {
-      console.log('Search was successful. Results:', result);
+    search.request.fetch(text).then((results) => {
+      console.log('Search was successful. Results:', results);
     }, (...err) => {
       console.log('Search failed.', ...err);
     }).finally(() => {
@@ -73,6 +73,8 @@ export default class HomeScreen extends Component {
             editable={ !this.state.isBusy }
             enablesReturnKeyAutomatically
             placeholderTextColor={ styles.searchQuery.borderColor }
+            autoCapitalize='none'
+            autoCorrect={ false }
           />
         </View>
         <Text

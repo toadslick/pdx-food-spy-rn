@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export default class SearchResult {
   name         ;
   address      ;
@@ -6,9 +8,10 @@ export default class SearchResult {
   inspectionID ;
   restaurantID ;
   score        ;
-  date         ;
+  moment       ;
   latitude     ;
   longitude    ;
+  type         ;
 
   static fromJSON(object) {
     const result = new SearchResult();
@@ -19,9 +22,10 @@ export default class SearchResult {
     result.inspectionID = object.inspection_number  ;
     result.restaurantID = object.restaurant_id      ;
     result.score        = object.score              ;
-    result.date         = new Date(object.date)     ;
     result.latitude     = object.location.Latitude  ;
     result.longitude    = object.location.Longitude ;
+    result.type         = object.type               ;
+    result.moment       = moment(object.date)       ;
     return result;
   }
 }
