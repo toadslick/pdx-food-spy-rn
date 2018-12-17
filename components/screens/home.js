@@ -11,16 +11,16 @@ import {
   TextInput,
 } from 'react-native';
 
-const SEARCH_TYPES = {
-  'Street Address': {
-    placeholder: 'Enter a Portland Street Address'
+const SEARCH_TYPES = [
+  {
+    title: 'Street Address',
+    placeholder: 'Enter a Portland Street Address',
   },
-  'Restaurant Name': {
-    placeholder: 'Enter a Restaurant Name'
+  {
+    title: 'Restaurant Name',
+    placeholder: 'Enter a Restaurant Name',
   },
-};
-
-const SEARCH_TYPE_KEYS = Object.keys(SEARCH_TYPES);
+];
 
 export default class HomeScreen extends Component {
   constructor(props) {
@@ -44,11 +44,6 @@ export default class HomeScreen extends Component {
     this.setState({ searchQuery: value });
   }
 
-  searchPlaceholder() {
-    const searchTypeKey = SEARCH_TYPE_KEYS[ this.state.searchTypeIndex ];
-    return SEARCH_TYPES[searchTypeKey].placeholder;
-  }
-
   render() {
     return (
       <View>
@@ -64,7 +59,7 @@ export default class HomeScreen extends Component {
         </Text>
         <SegmentedControlIOS
           style={ styles.searchOptions }
-          values={ SEARCH_TYPE_KEYS }
+          values={ SEARCH_TYPES.map((option) => option.title) }
           selectedIndex={ this.state.searchTypeIndex }
           onChange={ this.searchTypeSelected.bind(this) }
         />
@@ -72,7 +67,7 @@ export default class HomeScreen extends Component {
         style={ styles.searchQuery }
           onChangeText={ this.searchQueryChanged.bind(this) }
           value={ this.state.searchQuery }
-          placeholder={ this.searchPlaceholder() }
+          placeholder={ SEARCH_TYPES[this.state.searchTypeIndex].placeholder }
           editable={ !this.state.isBusy }
         />
         <Text
