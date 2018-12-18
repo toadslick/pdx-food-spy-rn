@@ -76,6 +76,7 @@ export default class HomeScreen extends Component {
             placeholderTextColor={ styles.searchQuery.borderColor }
             autoCapitalize='none'
             autoCorrect={ false }
+            selectTextOnFocus
           />
         </View>
         <Text

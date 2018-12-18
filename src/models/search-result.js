@@ -12,6 +12,7 @@ export default class SearchResult {
   latitude     ;
   longitude    ;
   type         ;
+  key          ; // Required by React Native for rendering list views.
 
   static fromJSON(object) {
     const result = new SearchResult();
@@ -26,6 +27,7 @@ export default class SearchResult {
     result.longitude    = object.location.Longitude ;
     result.type         = object.type               ;
     result.moment       = moment(object.date)       ;
+    result.key          = object.inspection_number  ;
     return result;
   }
 }

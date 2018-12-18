@@ -15,24 +15,63 @@ export default class SearchResultsList extends Component {
     return (
       <FlatList
         data={ results }
-        renderItem={ this.renderListItem.bind(this) }
+        renderItem={ renderListItem.bind(this) }
       />
     );
   }
+}
 
-  renderListItem({ item }) {
-    return (
-      <View>
-        <Text>
+const renderListItem = function({ item }) {
+  return (
+    <View
+      style={ styles.listItem }
+    >
+      <View style={ styles.textView }>
+        <Text style={ styles.title }>
           { item.name }
         </Text>
-        <Text>
+        <Text style={ styles.subtitle }>
           { item.address }
         </Text>
-        <Text>
+      </View>
+      <View style={ styles.scoreView }>
+        <Text style={ styles.score }>
           { item.score }
         </Text>
       </View>
-    );
-  }
-}
+    </View>
+  );
+};
+
+const styles = {
+  listItem: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingTop: 8,
+    paddingBottom: 8,
+    paddingLeft: 15,
+    paddingRight: 15,
+    borderTopWidth: 1,
+    borderColor: '#ddd',
+  },
+  textView: {
+    flexGrow: 100,
+  },
+  scoreView: {
+    flexGrow: 1,
+    textAlign: 'right',
+  },
+  title: {
+    fontSize: 18,
+    marginBottom: 2,
+  },
+  subtitle: {
+    fontSize: 14,
+    color: '#666',
+  },
+  score: {
+    fontSize: 30,
+    fontWeight: '400',
+  },
+};
