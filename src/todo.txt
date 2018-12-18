@@ -1,0 +1,14 @@
+While in active development, only iOS is being supported on this project.
+Changes required to also support Android:
+
+- install react-navigation java
+- install react-native-geocoder java
+- replace ios-only SegmentControl in components/screens/home.js
+- update project XML to support geolocation
+- constrain layout to portrait-only
+
+General todo's and improvements:
+
+- move strings to i18n
+- fork react-native-geocoder to support a searchable region
+  - update SearchByAddress to use region instead of appending city/state to query

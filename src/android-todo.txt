@@ -1,6 +1,0 @@
-While in active development, only iOS is being supported on this project.
-The purpose of this file is to maintain a list of the changed that will be required to support Android.
-
-- install react-navigation java
-- install react-native-geocoder java
-- replace ios-only SegmentControl in components/screens/home.js

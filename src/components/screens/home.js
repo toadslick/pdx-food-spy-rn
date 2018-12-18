@@ -12,6 +12,9 @@ import {
 } from 'react-native';
 
 import SEARCH_TYPES from '../../utils/search-types';
+import SearchByCurrentLocation from '../../requests/search-by-current-location';
+
+const sbcl = new SearchByCurrentLocation();
 
 export default class HomeScreen extends Component {
   constructor(props) {
@@ -26,14 +29,9 @@ export default class HomeScreen extends Component {
     this.setState({ searchTypeIndex: selectedSegmentIndex });
   }
 
-  searchCurrentLocation() {
-  }
-
-  searchQuerySubmitted({ nativeEvent: { text }}) {
-    const search = SEARCH_TYPES[this.state.searchTypeIndex];
-    console.log(`Performing search. Type: "${search.title}" Query: "${text}"`);
+  performSearch(searchRequestPromise) {
     this.setState({ isBusy: true });
-    search.request.fetch(text).then((results) => {
+    searchRequestPromise.then((results) => {
       console.log('Search was successful. Results:', results);
       this.props.navigation.navigate('searchResults', { results });
     }, (...err) => {
@@ -41,6 +39,17 @@ export default class HomeScreen extends Component {
     }).finally(() => {
       this.setState({ isBusy: false });
     });
+  }
+
+  searchCurrentLocation() {
+    console.log('Performing search. Type: "Current Location"');
+    this.performSearch(sbcl.fetch());
+  }
+
+  searchQuerySubmitted({ nativeEvent: { text }}) {
+    const search = SEARCH_TYPES[this.state.searchTypeIndex];
+    console.log(`Performing search. Type: "${search.title}" Query: "${text}"`);
+    this.performSearch(search.request.fetch(text));
   }
 
   render() {
