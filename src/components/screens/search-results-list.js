@@ -37,15 +37,24 @@ function renderListItem({ item }) {
       style={ styles.listItem }
     >
       <View style={ styles.textView }>
-        <Text style={ styles.title }>
+        <Text
+          style={ styles.title }
+          numberOfLines={ 1 }
+        >
           { item.name }
         </Text>
-        <Text style={ styles.subtitle }>
+        <Text
+          style={ styles.subtitle }
+          numberOfLines={ 1 }
+        >
           { item.address }
         </Text>
       </View>
       <View style={ styles.scoreView }>
-        <Text style={ [styles.score, { color: item.scoreColor }] }>
+        <Text
+          style={ [styles.score, { color: item.scoreColor }] }
+          numberOfLines={ 1 }
+        >
           { item.score }
         </Text>
       </View>
@@ -61,9 +70,10 @@ const styles = {
   listItem: {
     flex: 1,
     flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    paddingTop: 8,
-    paddingBottom: 8,
+    paddingTop: 7,
+    paddingBottom: 7,
     paddingLeft: 15,
     paddingRight: 15,
   },
@@ -73,11 +83,11 @@ const styles = {
     backgroundColor: '#ddd',
   },
   textView: {
-    flexGrow: 100,
+    flexShrink: 1,
   },
   scoreView: {
-    flexGrow: 1,
-    textAlign: 'right',
+    flexShrink: 0,
+    paddingLeft: 8,
   },
   title: {
     fontSize: 18,
@@ -90,5 +100,6 @@ const styles = {
   score: {
     fontSize: 30,
     fontWeight: '400',
+    textAlign: 'right',
   },
 };
