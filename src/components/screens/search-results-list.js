@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
   Text,
   View,
-  FlatList
+  FlatList,
 } from 'react-native';
 
 export default class SearchResultsList extends Component {
@@ -21,7 +21,7 @@ export default class SearchResultsList extends Component {
   }
 }
 
-const renderListItem = function({ item }) {
+function renderListItem({ item }) {
   return (
     <View
       style={ styles.listItem }
@@ -35,7 +35,7 @@ const renderListItem = function({ item }) {
         </Text>
       </View>
       <View style={ styles.scoreView }>
-        <Text style={ styles.score }>
+        <Text style={ [styles.score, scoreColorStyle(item)] }>
           { item.score }
         </Text>
       </View>
@@ -74,4 +74,10 @@ const styles = {
     fontSize: 30,
     fontWeight: '400',
   },
+};
+
+function scoreColorStyle(item) {
+  return {
+    color: item.scoreColor,
+  };
 };

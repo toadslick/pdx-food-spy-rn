@@ -1,4 +1,4 @@
-export default function(results) {
+export default function filterSearchResults(results) {
   let filteredResultsByID = {};
 
   results.forEach(function(result) {
