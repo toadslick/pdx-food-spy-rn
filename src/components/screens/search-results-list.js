@@ -16,7 +16,17 @@ export default class SearchResultsList extends Component {
       <FlatList
         data={ results }
         renderItem={ renderListItem.bind(this) }
+        keyExtractor={ keyExtractor }
+        ItemSeparatorComponent={ SearchResultListSeparator }
       />
+    );
+  }
+}
+
+class SearchResultListSeparator extends Component {
+  render() {
+    return (
+      <View style={ styles.separator }/>
     );
   }
 }
@@ -35,12 +45,16 @@ function renderListItem({ item }) {
         </Text>
       </View>
       <View style={ styles.scoreView }>
-        <Text style={ [styles.score, scoreColorStyle(item)] }>
+        <Text style={ [styles.score, { color: item.scoreColor }] }>
           { item.score }
         </Text>
       </View>
     </View>
   );
+};
+
+function keyExtractor(item) {
+  return item.inspectionID;
 };
 
 const styles = {
@@ -52,8 +66,11 @@ const styles = {
     paddingBottom: 8,
     paddingLeft: 15,
     paddingRight: 15,
-    borderTopWidth: 1,
-    borderColor: '#ddd',
+  },
+  separator: {
+    flex: 1,
+    height: 1,
+    backgroundColor: '#ddd',
   },
   textView: {
     flexGrow: 100,
@@ -74,10 +91,4 @@ const styles = {
     fontSize: 30,
     fontWeight: '400',
   },
-};
-
-function scoreColorStyle(item) {
-  return {
-    color: item.scoreColor,
-  };
 };
