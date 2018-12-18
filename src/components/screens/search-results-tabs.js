@@ -26,8 +26,8 @@ SearchResultsTabs.navigationOptions = ({ navigation }) => {
     headerTitle: headerTitles[routeName],
     headerRight: (
       <Button
-        title={buttonTitles[routeName]}
-        onPress={() => {}}
+        title={ buttonTitles[routeName] }
+        onPress={ () => {} }
       />
     ),
   };
