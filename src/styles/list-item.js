@@ -1,5 +1,5 @@
 export default {
-  listItem: {
+  cell: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -14,18 +14,18 @@ export default {
     height: 1,
     backgroundColor: '#ddd',
   },
-  textView: {
+  textContainer: {
     flexShrink: 1,
   },
-  scoreView: {
+  scoreContainer: {
     flexShrink: 0,
     paddingLeft: 8,
   },
   title: {
     fontSize: 18,
-    marginBottom: 2,
   },
   subtitle: {
+    marginTop: 2,
     fontSize: 14,
     color: '#666',
   },

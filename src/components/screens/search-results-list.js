@@ -6,7 +6,7 @@ import {
   FlatList,
 } from 'react-native';
 
-import styles from '../../styles/screens/search-results-list';
+import styles from '../../styles/list-item';
 
 export default class SearchResultsList extends Component {
   static navigationOptions = {
@@ -42,9 +42,9 @@ class SearchResultListSeparator extends Component {
 function renderListItem({ item }) {
   return (
     <View
-      style={ styles.listItem }
+      style={ styles.cell }
     >
-      <View style={ styles.textView }>
+      <View style={ styles.textContainer }>
         <Text
           style={ styles.title }
           numberOfLines={ 1 }
@@ -58,7 +58,7 @@ function renderListItem({ item }) {
           { item.address }
         </Text>
       </View>
-      <View style={ styles.scoreView }>
+      <View style={ styles.scoreContainer }>
         <Text
           style={ [styles.score, { color: item.scoreColor }] }
           numberOfLines={ 1 }
