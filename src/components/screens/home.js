@@ -54,22 +54,14 @@ export default class HomeScreen extends Component {
 
   render() {
     return (
-      <View
-        style={ styles.container }
-      >
-        <Text
-          style={ styles.title }
-        >
+      <View style={ styles.container }>
+        <Text style={ styles.title }>
           Find Inspections for Portland Restaurants
-          </Text>
-        <Text
-          style={ styles.label }
-        >
+        </Text>
+        <Text style={ styles.label }>
           Search by:
         </Text>
-        <View
-          style={ styles.fieldset }
-        >
+        <View style={ styles.fieldset }>
           <SegmentedControlIOS
             style={ styles.searchOptions }
             values={ SEARCH_TYPES.map((option) => option.title) }
@@ -88,14 +80,10 @@ export default class HomeScreen extends Component {
             selectTextOnFocus
           />
         </View>
-        <Text
-          style={ styles.label }
-        >
+        <Text style={ styles.label }>
           or...
         </Text>
-        <View
-          style={ styles.fieldset }
-        >
+        <View style={ styles.fieldset }>
           <Button
             style={ styles.button }
             title='Search My Current Location'
