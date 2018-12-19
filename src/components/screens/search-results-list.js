@@ -10,11 +10,17 @@ export default class SearchResultsList extends Component {
     tabBarLabel: 'List',
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      results: props.navigation.getParam('results'),
+    };
+  }
+
   render() {
-    const results = this.props.navigation.getParam('results');
     return (
       <FlatList
-        data={ results }
+        data={ this.state.results }
         renderItem={ renderListItem.bind(this) }
         ItemSeparatorComponent={ SearchResultListSeparator }
       />
