@@ -10,11 +10,6 @@ const SearchResultsTabs = createBottomTabNavigator({
   map: SearchResultsMap,
 });
 
-const headerTitles = {
-  list: 'Search Results List',
-  map: 'Search Results Map',
-};
-
 const buttonTitles = {
   list: 'Sort',
   map: 'Reset',
@@ -23,7 +18,7 @@ const buttonTitles = {
 SearchResultsTabs.navigationOptions = ({ navigation }) => {
   const { routeName } = navigation.state.routes[navigation.state.index];
   return {
-    headerTitle: headerTitles[routeName],
+    headerTitle: 'Search Results',
     headerRight: (
       <Button
         title={ buttonTitles[routeName] }
