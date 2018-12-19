@@ -1,5 +1,7 @@
 import SearchByAddress from './search-by-address';
+
 import CONFIG from '../config';
+import mockPosition from '../mocks/current-location';
 
 export default class SearchByCurrentLocation extends SearchByAddress {
 
@@ -7,7 +9,7 @@ export default class SearchByCurrentLocation extends SearchByAddress {
     // Allow mocking of the current location.
     if (CONFIG.mockRequests) {
       console.log('MOCKING geolocation.');
-      return Promise.resolve({ coords: { latitude: 0, longitude: 0 }});
+      return Promise.resolve(mockPosition);
     }
 
     return new Promise(function(resolve, reject) {

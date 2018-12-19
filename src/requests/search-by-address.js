@@ -2,8 +2,10 @@ import Geocoder from 'react-native-geocoder';
 import APIRequest from './api-request';
 import SearchResult from '../models/search-result';
 import filterSearchResults from '../utils/filter-search-results';
-import mockResponse from '../mocks/search-results';
+
 import CONFIG from '../config';
+import mockResponse from '../mocks/search-results';
+import mockGeocode from '../mocks/address-geocode';
 
 export default class SearchByAddress extends APIRequest {
   mock = mockResponse;
@@ -12,7 +14,7 @@ export default class SearchByAddress extends APIRequest {
     // Allow mocking of the geocoded address.
     if (CONFIG.mockRequests) {
       console.log('MOCKING geocoded address.');
-      return Promise.resolve([{ position: { lat: 0, lng: 0 }}]);
+      return Promise.resolve(mockGeocode);
     }
 
     console.log(`Geocoding address: "${streetAddress}"`);
