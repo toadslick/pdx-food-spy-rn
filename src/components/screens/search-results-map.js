@@ -10,7 +10,8 @@ import MapView, {
   Callout,
 } from 'react-native-maps';
 
-import styles from '../../styles/screens/search-results-map';
+import mapStyles from '../../styles/screens/search-results-map';
+import calloutStyles from '../../styles/list-item';
 
 export default class SearchResultsMap extends Component {
   static navigationOptions = {
@@ -43,7 +44,7 @@ export default class SearchResultsMap extends Component {
         showsIndoors={ false }
         toolbarEnabled={ false }
         showsUserLocation={ true }
-        style={ styles.map }
+        style={ mapStyles.map }
         ref={ (c) => this.mapView = c }
       >
         { this.renderMapMarkers() }
@@ -66,16 +67,20 @@ export default class SearchResultsMap extends Component {
           identifier={ result.key }
           pinColor={ result.scoreColor }
         >
-          <Callout>
-            <Text>
-              { result.name }
-            </Text>
-            <Text>
-              { result.address }
-            </Text>
-            <Text>
-              { result.score }
-            </Text>
+          <Callout style={ mapStyles.callout }>
+            <View style={ calloutStyles.textContainer }>
+              <Text style={ calloutStyles.title }>
+                { result.name }
+              </Text>
+              <Text style={ calloutStyles.subtitle }>
+                { result.address }
+              </Text>
+            </View>
+            <View style={ [calloutStyles.scoreContainer, mapStyles.calloutScoreContainer] }>
+              <Text style={ [calloutStyles.score, { color: result.scoreColor }] }>
+                { result.score }
+              </Text>
+            </View>
           </Callout>
         </Marker>
       );
