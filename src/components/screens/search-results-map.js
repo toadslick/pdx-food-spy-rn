@@ -76,8 +76,11 @@ export default class SearchResultsMap extends Component {
                 { result.address }
               </Text>
             </View>
-            <View style={ [calloutStyles.scoreContainer, mapStyles.calloutScoreContainer] }>
-              <Text style={ [calloutStyles.score, { color: result.scoreColor }] }>
+            <View
+              style={ mapStyles.scoreContainer }
+            >
+              <Text
+                style={ [calloutStyles.score, { color: result.scoreColor }] }>
                 { result.score }
               </Text>
             </View>

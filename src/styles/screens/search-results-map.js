@@ -5,10 +5,9 @@ export default {
   callout: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'stretch',
   },
-  calloutScoreContainer: {
+  scoreContainer: {
     paddingLeft: 20,
   },
 };
