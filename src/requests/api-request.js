@@ -35,14 +35,13 @@ export default class APIRequest {
       url = `${url}?${queryString}`;
     }
 
-    console.log('Sending API request. URL:', url);
-
-    // Return a mock response if CONFIG.mockRequests is true.
+    // Allow mocking of the API response.
     let promise;
     if (CONFIG.mockRequests) {
-      console.log('Using mock response.');
+      console.log('MOCKING response from API request.');
       promise = Promise.resolve(this.mock);
     } else {
+      console.log('Sending API request. URL:', url);
       promise = fetch(url, params).then((response) => response.json());
     }
 
