@@ -12,7 +12,7 @@ export default class SearchByAddress extends APIRequest {
     // Allow mocking of the geocoded address.
     if (CONFIG.mockRequests) {
       console.log('MOCKING geocoded address.');
-      return Promise.resolve({ position: { lat: 0, lng: 0 }});
+      return Promise.resolve([{ position: { lat: 0, lng: 0 }}]);
     }
 
     console.log(`Geocoding address: "${streetAddress}"`);
