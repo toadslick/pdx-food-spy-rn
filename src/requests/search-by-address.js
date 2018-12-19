@@ -2,8 +2,10 @@ import Geocoder from 'react-native-geocoder';
 import APIRequest from './api-request';
 import SearchResult from '../models/search-result';
 import filterSearchResults from '../utils/filter-search-results';
+import mockResponse from '../mocks/search-results';
 
 export default class SearchByAddress extends APIRequest {
+  mock = mockResponse;
 
   preflight(streetAddress) {
     console.log(`Geocoding address: "${streetAddress}"`);

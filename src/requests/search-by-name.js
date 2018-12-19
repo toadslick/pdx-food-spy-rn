@@ -1,8 +1,10 @@
 import APIRequest from './api-request';
 import SearchResult from '../models/search-result';
 import filterSearchResults from '../utils/filter-search-results';
+import mockResponse from '../mocks/search-results';
 
 export default class SearchByName extends APIRequest {
+  mock = mockResponse;
 
   buildQueryParams(query) {
     return {

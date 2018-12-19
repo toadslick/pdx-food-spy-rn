@@ -35,6 +35,7 @@ export default class SearchResultsMap extends Component {
           coordinate={ coordinate }
           title={ result.name }
           description={ result.address }
+          key={ result.key }
         >
           <Callout>
             <Text>

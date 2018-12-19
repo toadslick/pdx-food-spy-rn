@@ -16,7 +16,6 @@ export default class SearchResultsList extends Component {
       <FlatList
         data={ results }
         renderItem={ renderListItem.bind(this) }
-        keyExtractor={ keyExtractor }
         ItemSeparatorComponent={ SearchResultListSeparator }
       />
     );
@@ -60,10 +59,6 @@ function renderListItem({ item }) {
       </View>
     </View>
   );
-};
-
-function keyExtractor(item) {
-  return item.inspectionID;
 };
 
 const styles = {

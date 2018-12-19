@@ -1,5 +1,8 @@
+import CONFIG from '../config';
+
 export default class APIRequest {
   rootURL = 'http://api.civicapps.org/restaurant-inspections/';
+  mock = {};
 
   // Used to handle async behavior needed before the request, such as geocoding.
   preflight(query) { return Promise.resolve(query); }
@@ -33,9 +36,17 @@ export default class APIRequest {
     }
 
     console.log('Sending API request. URL:', url);
-    return fetch(url, params)
-      .then((response) => response.json())
-      .then(this.parseJSON.bind(this));
+
+    // Return a mock response if CONFIG.mockRequests is true.
+    let promise;
+    if (CONFIG.mockRequests) {
+      console.log('Using mock response.');
+      promise = Promise.resolve(this.mock);
+    } else {
+      promise = fetch(url, params).then((response) => response.json());
+    }
+
+    return promise.then(this.parseJSON.bind(this));
   }
 
   parseJSON(json) {

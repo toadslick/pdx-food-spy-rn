@@ -15,17 +15,17 @@ export default class SearchResult {
 
   static fromJSON(object) {
     const result = new SearchResult();
-    result.name         = object.name               ;
-    result.address      = object.address.street     ;
-    result.zip          = object.address.zip        ;
-    result.distance     = object.distance           ;
-    result.inspectionID = object.inspection_number  ;
-    result.restaurantID = object.restaurant_id      ;
-    result.score        = parseInt(object.score)    ;
-    result.latitude     = object.location.Latitude  ;
-    result.longitude    = object.location.Longitude ;
-    result.type         = object.type               ;
-    result.moment       = moment(object.date)       ;
+    result.name         = object.name;
+    result.address      = object.address.street;
+    result.zip          = object.address.zip;
+    result.inspectionID = object.inspection_number;
+    result.restaurantID = object.restaurant_id;
+    result.type         = object.type;
+    result.score        = parseInt(object.score);
+    result.latitude     = parseFloat(object.location.Latitude);
+    result.longitude    = parseFloat(object.location.Longitude);
+    result.distance     = parseFloat(object.distance);
+    result.moment       = moment(object.date);
     return result;
   }
 
@@ -35,6 +35,11 @@ export default class SearchResult {
         return `rgb(${rgb.join(',')})`;
       }
     }
+  }
+
+  // Required by React Native for objects used in list views or iterators.
+  get key() {
+    return this.inspectionID;
   }
 }
 
