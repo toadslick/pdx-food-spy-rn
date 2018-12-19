@@ -10,6 +10,8 @@ import MapView, {
   Callout,
 } from 'react-native-maps';
 
+import styles from '../../styles/screens/search-results-map';
+
 export default class SearchResultsMap extends Component {
   static navigationOptions = {
     tabBarLabel: 'Map',
@@ -80,9 +82,3 @@ export default class SearchResultsMap extends Component {
     });
   }
 }
-
-const styles = {
-  map: {
-    flex: 1,
-  },
-};
