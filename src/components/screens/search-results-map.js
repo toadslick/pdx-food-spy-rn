@@ -11,7 +11,7 @@ import MapView, {
 } from 'react-native-maps';
 
 import mapStyles from '../../styles/screens/search-results-map';
-import calloutStyles from '../../styles/list-item';
+import calloutStyles from '../../styles/navigable-list';
 
 export default class SearchResultsMap extends Component {
   static navigationOptions = {

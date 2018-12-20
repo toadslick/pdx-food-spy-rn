@@ -8,7 +8,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 
-import styles from '../../styles/list-item';
+import styles from '../../styles/navigable-list';
 import ListSeparator from './list-separator';
 import BaseScreen from '../screens/_base';
 

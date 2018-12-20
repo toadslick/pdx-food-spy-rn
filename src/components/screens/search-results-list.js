@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Text } from 'react-native';
-import styles from '../../styles/list-item';
+import styles from '../../styles/navigable-list';
 import InspectionHistoryRequest from '../../requests/inspection-history';
 import NavigableList from '../shared/navigable-list';
 
