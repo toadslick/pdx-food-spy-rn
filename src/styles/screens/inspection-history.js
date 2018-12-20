@@ -21,7 +21,6 @@ export default {
   },
   scoreBarContainer: {
     marginTop: 4,
-    marginRight: 10,
     marginBottom: 3,
     backgroundColor: '#eee',
     height: 10,

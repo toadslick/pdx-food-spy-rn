@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 
 import NavigableList from '../shared/navigable-list';
-import styles from '../../styles/screens/history';
+import styles from '../../styles/screens/inspection-history';
 
 const DATE_FORMAT = 'MMM D, YYYY';
 

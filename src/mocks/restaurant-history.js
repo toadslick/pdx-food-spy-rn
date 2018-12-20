@@ -132,7 +132,7 @@ export default {
 		"restaurant_id": "1020",
 		"type": "FoodSvcSemi",
 		"date": "2013-04-01",
-		"score": "79",
+		"score": "100",
 		"address": {
 			"street": "238 NW 4th Ave",
 			"city": "Portland",
@@ -186,7 +186,7 @@ export default {
 		"restaurant_id": "1020",
 		"type": "FoodSvcSemi",
 		"date": "2011-11-03",
-		"score": "94",
+		"score": "98",
 		"address": {
 			"street": "238 NW 4th Ave",
 			"city": "Portland",

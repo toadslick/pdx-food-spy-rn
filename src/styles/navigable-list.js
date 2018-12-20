@@ -21,11 +21,10 @@ export default {
   },
   textContainer: {
     justifyContent: 'center',
-    flexGrow: 1,
+    flex: 1,
   },
   scoreContainer: {
     justifyContent: 'center',
-    flexGrow: 0,
     paddingLeft: 8,
   },
   title: {
@@ -40,5 +39,6 @@ export default {
     fontSize: 30,
     fontWeight: '400',
     textAlign: 'right',
+    minWidth: 55,
   },
 };
