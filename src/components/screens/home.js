@@ -15,10 +15,10 @@ import styles from '../../styles/screens/home';
 import BaseScreen from './_base';
 
 export default class HomeScreen extends BaseScreen {
+  sbcl = new SearchByCurrentLocation();
 
   constructor(props) {
     super(props);
-    this.sbcl = new SearchByCurrentLocation();
     this.state.searchTypeIndex = 0;
   }
 

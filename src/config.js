@@ -1,3 +1,3 @@
 export default {
-  mockRequests: false,
+  mockRequests: true,
 };
