@@ -1,6 +1,4 @@
-import React, {
-  Component,
-} from 'react';
+import React from 'react';
 
 import {
   Text,
@@ -14,33 +12,22 @@ import {
 import SEARCH_TYPES from '../../utils/search-types';
 import SearchByCurrentLocation from '../../requests/search-by-current-location';
 import styles from '../../styles/screens/home';
+import BaseScreen from './_base';
 
-
-export default class HomeScreen extends Component {
+export default class HomeScreen extends BaseScreen {
 
   constructor(props) {
     super(props);
     this.sbcl = new SearchByCurrentLocation();
-    this.state = {
-      isBusy: false,
-      searchTypeIndex: 0,
-    };
+    this.state.searchTypeIndex = 0;
   }
 
   searchTypeSelected({ nativeEvent: { selectedSegmentIndex }}) {
     this.setState({ searchTypeIndex: selectedSegmentIndex });
   }
 
-  performSearch(searchRequestPromise) {
-    this.setState({ isBusy: true });
-    searchRequestPromise.then((results) => {
-      console.log('Search was successful. Results:', results);
-      this.props.navigation.navigate('searchResults', { results });
-    }, (...err) => {
-      console.log('Search failed.', ...err);
-    }).finally(() => {
-      this.setState({ isBusy: false });
-    });
+  performSearch(promise) {
+    this.requestAndNavigate(promise, 'searchResults', 'results');
   }
 
   searchCurrentLocation() {

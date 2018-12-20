@@ -10,8 +10,9 @@ import {
 
 import styles from '../../styles/list-item';
 import RestaurantHistoryRequest from '../../requests/restaurant-history';
+import BaseScreen from './_base';
 
-export default class SearchResultsList extends Component {
+export default class SearchResultsList extends BaseScreen {
   static navigationOptions = {
     tabBarLabel: 'List',
   };
@@ -19,27 +20,14 @@ export default class SearchResultsList extends Component {
   constructor(props) {
     super(props);
     this.rhr = new RestaurantHistoryRequest();
-    this.state = {
-      items: props.navigation.getParam('results'),
-      selectedItem: null,
-      isBusy: false,
-    };
+    this.state.items = props.navigation.getParam('results');
+    this.state.selectedItem = null;
   }
 
   itemSelected(item) {
-    if (!this.state.isBusy) {
-      this.setState({
-        selectedItem: item,
-        isBusy: true,
-      });
-      this.rhr.fetch(item.restaurantID).then((results) => {
-        console.log('Request was successful. Results:', results);
-      }, (...err) => {
-        console.log('Request failed.', ...err);
-      }).finally(() => {
-        this.setState({ isBusy: false });
-      });
-    }
+    this.setState({ selectedItem: item });
+    const promise = this.rhr.fetch(item.restaurantID);
+    this.requestAndNavigate(promise, 'history', 'history');
   }
 
   render() {
