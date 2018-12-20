@@ -7,7 +7,7 @@ import CONFIG from '../config';
 import mockResponse from '../mocks/search-results';
 import mockGeocode from '../mocks/address-geocode';
 
-export default class SearchByAddress extends APIRequest {
+export default class SearchByAddressRequest extends APIRequest {
   mock = mockResponse;
 
   preflight(streetAddress) {

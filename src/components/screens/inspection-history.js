@@ -10,7 +10,7 @@ import styles from '../../styles/screens/history';
 
 const DATE_FORMAT = 'MMM D, YYYY';
 
-export default class RestaurantHistory extends NavigableList {
+export default class InspectionHistory extends NavigableList {
   static navigationOptions = {
     headerTitle: 'Inspection History',
   }

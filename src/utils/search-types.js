@@ -1,15 +1,15 @@
-import SearchByAddress from '../requests/search-by-address';
-import SearchByName from '../requests/search-by-name';
+import SearchByAddressRequest from '../requests/search-by-address';
+import SearchByNameRequest from '../requests/search-by-name';
 
 export default [
   {
     title: 'Street Address',
     placeholder: 'Enter a Portland Street Address',
-    request: new SearchByAddress(),
+    request: new SearchByAddressRequest(),
   },
   {
     title: 'Restaurant Name',
     placeholder: 'Enter a Restaurant Name',
-    request: new SearchByName(),
+    request: new SearchByNameRequest(),
   },
 ];

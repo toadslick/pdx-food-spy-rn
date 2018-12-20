@@ -3,7 +3,7 @@ import SearchByAddress from './search-by-address';
 import CONFIG from '../config';
 import mockPosition from '../mocks/current-location';
 
-export default class SearchByCurrentLocation extends SearchByAddress {
+export default class SearchByCurrentLocationRequest extends SearchByAddress {
 
   preflight() {
     // Allow mocking of the current location.

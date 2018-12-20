@@ -1,7 +1,7 @@
 import { createStackNavigator } from 'react-navigation';
 import Home from './screens/home';
 import SearchResultsTabs from './screens/search-results-tabs';
-import InspectionHistory from './screens/history';
+import InspectionHistory from './screens/inspection-history';
 
 export default createStackNavigator({
   home: {

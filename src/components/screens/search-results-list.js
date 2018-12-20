@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { Text } from 'react-native';
 import styles from '../../styles/list-item';
-import RestaurantHistoryRequest from '../../requests/restaurant-history';
+import InspectionHistoryRequest from '../../requests/inspection-history';
 import NavigableList from '../shared/navigable-list';
 
 export default class SearchResultsList extends NavigableList {
   static navigationOptions = {
     tabBarLabel: 'List',
   };
-  rhr = new RestaurantHistoryRequest();
+  rhr = new InspectionHistoryRequest();
 
   get itemsParam() { return 'results'; }
   get requestResultsParam() { return 'history'; };

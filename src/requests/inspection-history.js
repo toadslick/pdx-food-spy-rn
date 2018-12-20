@@ -2,7 +2,7 @@ import APIRequest from './api-request';
 import SearchResult from '../models/search-result';
 import mockResponse from '../mocks/restaurant-history';
 
-export default class RestaurantHistoryRequest extends APIRequest {
+export default class InspectionHistoryRequest extends APIRequest {
   mock = mockResponse;
 
   buildQueryParams(query) {
