@@ -30,7 +30,7 @@ export default class SearchResultsMap extends Component {
   }
 
   fitToMarkers() {
-    const markerIdentifiers = this.state.results.map(result => result.inspectionID);
+    const markerIdentifiers = this.state.results.map(result => result.key);
     this.mapView.fitToSuppliedMarkers(markerIdentifiers);
   }
 

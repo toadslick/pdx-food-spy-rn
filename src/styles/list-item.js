@@ -3,12 +3,16 @@ export default {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'stretch',
+    alignItems: 'center',
     paddingTop: 7,
     paddingBottom: 7,
     paddingLeft: 15,
     paddingRight: 15,
     overflow: 'hidden',
+    backgroundColor: '#fff',
+  },
+  activeCell: {
+    backgroundColor: '#eee',
   },
   separator: {
     flex: 1,
