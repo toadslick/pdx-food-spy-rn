@@ -1,19 +1,38 @@
 import React, { Component } from 'react';
+import { View } from 'react-native';
+import NavigableList from '../shared/navigable-list';
+import styles from '../../styles/screens/history';
 
-import {
-  Text,
-} from 'react-native';
+const DATE_FORMAT = 'MMM D, YYYY';
 
-import BaseScreen from './_base';
-
-export default class RestaurantHistory extends BaseScreen {
+export default class RestaurantHistory extends NavigableList {
   static navigationOptions = {
     headerTitle: 'Inspection History',
   }
 
-  render () {
+  get itemsParam() { return 'history'; }
+  get requestResultsParam() { return 'details'; };
+  get nextScreen() { return 'details'; };
+
+  render() {
+    return this.renderList();
+  }
+
+  listItemTitleText(item) {
+    return item.moment.format(DATE_FORMAT);
+  }
+
+  renderListItemSubtitle(item) {
+    console.log('PERCENT', item.scorePercent);
+    const scoreBarStyle = {
+      width: item.scorePercent + '%',
+      backgroundColor: item.scoreColor,
+    };
+
     return (
-      <Text>INSPECTION HISTORY</Text>
+      <View style={ styles.scoreBarContainer }>
+        <View style={ [styles.scoreBar, scoreBarStyle] } />
+      </View>
     );
   }
 }

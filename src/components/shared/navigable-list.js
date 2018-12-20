@@ -15,7 +15,6 @@ import BaseScreen from '../screens/_base';
 export default class NavigableList extends BaseScreen {
   constructor(props) {
     super(props);
-    console.log('PARAM', this.itemsParam);
     this.state.items = props.navigation.getParam(this.itemsParam);
     this.state.selectedItem = null;
   }

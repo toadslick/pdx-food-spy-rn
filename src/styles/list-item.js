@@ -21,11 +21,11 @@ export default {
   },
   textContainer: {
     justifyContent: 'center',
-    flexShrink: 1,
+    flexGrow: 1,
   },
   scoreContainer: {
     justifyContent: 'center',
-    flexShrink: 0,
+    flexGrow: 0,
     paddingLeft: 8,
   },
   title: {
