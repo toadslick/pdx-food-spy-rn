@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+
+import {
+  View,
+  Text,
+} from 'react-native';
+
 import NavigableList from '../shared/navigable-list';
 import styles from '../../styles/screens/history';
 
@@ -15,7 +20,20 @@ export default class RestaurantHistory extends NavigableList {
   get nextScreen() { return 'details'; };
 
   render() {
-    return this.renderList();
+    const item = this.state.items[0];
+    return (
+      <View style={ styles.container }>
+        <View style={ styles.header }>
+          <Text style={ styles.title }>
+            { item.name }
+          </Text>
+          <Text style={ styles.subtitle }>
+            { item.address }
+          </Text>
+        </View>
+        { this.renderList() }
+      </View>
+    );
   }
 
   listItemTitleText(item) {
@@ -23,7 +41,6 @@ export default class RestaurantHistory extends NavigableList {
   }
 
   renderListItemSubtitle(item) {
-    console.log('PERCENT', item.scorePercent);
     const scoreBarStyle = {
       width: item.scorePercent + '%',
       backgroundColor: item.scoreColor,

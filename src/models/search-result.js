@@ -1,7 +1,6 @@
 import moment from 'moment';
 
 const MINIMUM_SCORE = 50;
-const MAXIMUM_SCORE = 100;
 
 export default class SearchResult {
   name         ;
@@ -41,7 +40,7 @@ export default class SearchResult {
   }
 
   get scorePercent() {
-    return ((MAXIMUM_SCORE - MINIMUM_SCORE) / this.score) * 100;
+    return ((this.score - MINIMUM_SCORE) / MINIMUM_SCORE) * 100;
   }
 
   // Required by React Native for objects used in list views or iterators.
