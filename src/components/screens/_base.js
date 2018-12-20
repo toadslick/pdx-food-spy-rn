@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 
 export default class BaseScreen extends Component {
-
   constructor(props) {
     super(props);
 
     this.state = {
       isBusy: false,
     };
+
+    this.focusListener = this.props.navigation.addListener('willFocus', this.willFocus.bind(this));
+    this.blurListener  = this.props.navigation.addListener('willBlur' , this.willBlur.bind(this));
   }
+
+  willFocus() {}
+  willBlur() {}
 
   requestAndNavigate(promise, screenKey, paramKey) {
     if (this.state.isBusy) { return; }

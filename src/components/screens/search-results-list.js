@@ -24,6 +24,10 @@ export default class SearchResultsList extends BaseScreen {
     this.state.selectedItem = null;
   }
 
+  willFocus() {
+    this.setState({ selectedItem: null });
+  }
+
   itemSelected(item) {
     this.setState({ selectedItem: item });
     const promise = this.rhr.fetch(item.restaurantID);
