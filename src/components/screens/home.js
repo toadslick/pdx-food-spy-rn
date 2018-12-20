@@ -15,11 +15,12 @@ import SEARCH_TYPES from '../../utils/search-types';
 import SearchByCurrentLocation from '../../requests/search-by-current-location';
 import styles from '../../styles/screens/home';
 
-const sbcl = new SearchByCurrentLocation();
 
 export default class HomeScreen extends Component {
+
   constructor(props) {
     super(props);
+    this.sbcl = new SearchByCurrentLocation();
     this.state = {
       isBusy: false,
       searchTypeIndex: 0,
@@ -44,7 +45,7 @@ export default class HomeScreen extends Component {
 
   searchCurrentLocation() {
     console.log('Performing search. Type: "Current Location"');
-    this.performSearch(sbcl.fetch());
+    this.performSearch(this.sbcl.fetch());
   }
 
   searchQuerySubmitted({ nativeEvent: { text }}) {

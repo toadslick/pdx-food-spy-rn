@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 
 import styles from '../../styles/list-item';
+import RestaurantHistoryRequest from '../../requests/restaurant-history';
 
 export default class SearchResultsList extends Component {
   static navigationOptions = {
@@ -17,6 +18,7 @@ export default class SearchResultsList extends Component {
 
   constructor(props) {
     super(props);
+    this.rhr = new RestaurantHistoryRequest();
     this.state = {
       items: props.navigation.getParam('results'),
       selectedItem: null,
@@ -29,6 +31,13 @@ export default class SearchResultsList extends Component {
       this.setState({
         selectedItem: item,
         isBusy: true,
+      });
+      this.rhr.fetch(item.restaurantID).then((results) => {
+        console.log('Request was successful. Results:', results);
+      }, (...err) => {
+        console.log('Request failed.', ...err);
+      }).finally(() => {
+        this.setState({ isBusy: false });
       });
     }
   }
@@ -45,11 +54,15 @@ export default class SearchResultsList extends Component {
   }
 
   renderListItem({ item }) {
-    let itemStyle;
-    let scoreOrSpinner;
+    const isSelected = (this.state.selectedItem === item);
 
-    if (this.state.selectedItem === item) {
+    let itemStyle;
+    if (isSelected) {
       itemStyle = styles.activeCell;
+    }
+
+    let scoreOrSpinner;
+    if (isSelected && this.state.isBusy) {
       scoreOrSpinner = (
         <ActivityIndicator
           size='large'
