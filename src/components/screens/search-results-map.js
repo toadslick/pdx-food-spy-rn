@@ -16,9 +16,6 @@ import mapStyles from '../../styles/screens/search-results-map';
 import calloutStyles from '../../styles/navigable-list';
 
 export default class SearchResultsMap extends BaseScreen {
-  static navigationOptions = {
-    tabBarLabel: 'Map',
-  };
   rhr = new InspectionHistoryRequest();
 
   constructor(props) {

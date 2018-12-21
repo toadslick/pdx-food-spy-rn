@@ -5,9 +5,6 @@ import InspectionHistoryRequest from '../../requests/inspection-history';
 import NavigableList from '../shared/navigable-list';
 
 export default class SearchResultsList extends NavigableList {
-  static navigationOptions = {
-    tabBarLabel: 'List',
-  };
   rhr = new InspectionHistoryRequest();
 
   get itemsParam() { return 'results'; }
