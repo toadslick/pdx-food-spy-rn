@@ -10,23 +10,29 @@ import MapView, {
   Callout,
 } from 'react-native-maps';
 
+import BaseScreen from './_base';
+import InspectionHistoryRequest from '../../requests/inspection-history';
 import mapStyles from '../../styles/screens/search-results-map';
 import calloutStyles from '../../styles/navigable-list';
 
-export default class SearchResultsMap extends Component {
+export default class SearchResultsMap extends BaseScreen {
   static navigationOptions = {
     tabBarLabel: 'Map',
   };
+  rhr = new InspectionHistoryRequest();
 
   constructor(props) {
     super(props);
-    this.state = {
-      results: props.navigation.getParam('results'),
-    };
+    this.state.results = props.navigation.getParam('results');
   }
 
   componentDidMount() {
     this.fitToMarkers();
+  }
+
+  calloutTapped(item) {
+    const promise = this.rhr.fetch(item.restaurantID);
+    return this.requestAndNavigate(promise, 'history', 'history');
   }
 
   fitToMarkers() {
@@ -53,7 +59,7 @@ export default class SearchResultsMap extends Component {
   }
 
   renderMapMarkers() {
-    return this.state.results.map(function(result) {
+    return this.state.results.map((result) => {
       const coordinate = {
         latitude: result.latitude,
         longitude: result.longitude,
@@ -67,7 +73,10 @@ export default class SearchResultsMap extends Component {
           identifier={ result.key }
           pinColor={ result.scoreColor }
         >
-          <Callout style={ mapStyles.callout }>
+          <Callout
+            style={ mapStyles.callout }
+            onPress={ this.calloutTapped.bind(this, result) }
+          >
             <View style={ calloutStyles.textContainer }>
               <Text style={ calloutStyles.title }>
                 { result.name }
