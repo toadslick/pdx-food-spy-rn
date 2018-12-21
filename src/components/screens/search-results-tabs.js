@@ -14,7 +14,10 @@ const SearchResultsTabs = createBottomTabNavigator(navigatorConfig, {
     return {
       tabBarLabel: config.tabTitle,
       tabBarIcon: (
-        <Image source={ config.image }/>
+        <Image
+          source={ config.image }
+          style={{ height: 25, width: 25 }}
+        />
       ),
     };
   },
