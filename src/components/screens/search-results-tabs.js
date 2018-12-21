@@ -13,10 +13,10 @@ const SearchResultsTabs = createBottomTabNavigator(navigatorConfig, {
     const config = tabConfig[navigation.state.routeName];
     return {
       tabBarLabel: config.tabTitle,
-      tabBarIcon: (
+      tabBarIcon: ({ tintColor }) => (
         <Image
           source={ config.image }
-          style={{ height: 25, width: 25 }}
+          style={{ height: 25, width: 25, tintColor: tintColor }}
         />
       ),
     };
