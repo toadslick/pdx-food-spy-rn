@@ -9,4 +9,8 @@ export default class InspectionViolation {
     iv.correctiveComments = (object.corrective_comments || '').trim();
     return iv;
   }
+
+  get key() {
+    return this.lawCode;
+  }
 }

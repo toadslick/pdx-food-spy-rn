@@ -3,6 +3,7 @@ import React from 'react';
 import {
   Text,
   View,
+  SectionList,
 } from 'react-native';
 
 import BaseScreen from './_base';
@@ -15,6 +16,20 @@ export default class InspectionDetails extends BaseScreen {
     super(props);
     this.state.violations = props.navigation.getParam('violations');
     this.state.inspection = props.navigation.getParam('inspection');
+  }
+
+  buildSections() {
+    const sections = this.state.violations.map((v) => {
+      const data = [v.violationText];
+      if (v.violationComments) {
+        data.push(v.violationComments);
+      }
+      return {
+        title: v.lawCode,
+        data,
+      };
+    });
+    return sections;
   }
 
   render() {
@@ -36,7 +51,29 @@ export default class InspectionDetails extends BaseScreen {
             { inspection.score }
           </Text>
         </View>
+        <SectionList
+          renderItem={ this.renderItem.bind(this) }
+          renderSectionHeader={ this.renderSectionHeader.bind(this) }
+          sections={ this.buildSections() }
+          keyExtractor={ (item) => item }
+        />
       </View>
+    );
+  }
+
+  renderItem({ item, index, section }) {
+    return (
+      <Text>
+        { item }
+      </Text>
+    );
+  }
+
+  renderSectionHeader({ section: { title }}) {
+    return (
+      <Text>
+        { title }
+      </Text>
     );
   }
 }
