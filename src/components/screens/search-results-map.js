@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import {
   Text,
   View,
+  ActivityIndicator,
 } from 'react-native';
 
 import MapView, {
@@ -49,20 +50,37 @@ export default class SearchResultsMap extends BaseScreen {
   }
 
   render() {
+    const overlayStyle = {};
+    if (!this.state.isBusy) {
+      overlayStyle.display = 'none';
+    }
+
     return (
-      <MapView
-        mapType='mutedStandard'
-        showsPointsOfInterest={ false }
-        showsBuildings={ false }
-        showsTraffic={ false }
-        showsIndoors={ false }
-        toolbarEnabled={ false }
-        showsUserLocation={ true }
-        style={ mapStyles.map }
-        ref={ (c) => this.mapView = c }
-      >
-        { this.renderMapMarkers() }
-      </MapView>
+      <View style={ mapStyles.container }>
+        <MapView
+          mapType='mutedStandard'
+          showsPointsOfInterest={ false }
+          showsBuildings={ false }
+          showsTraffic={ false }
+          showsIndoors={ false }
+          toolbarEnabled={ false }
+          showsUserLocation={ true }
+          style={ mapStyles.map }
+          ref={ (c) => this.mapView = c }
+        >
+          { this.renderMapMarkers() }
+        </MapView>
+        <View style={ [mapStyles.busyOverlay, overlayStyle] }>
+          <View style= { mapStyles.spinnerContainer }>
+            <ActivityIndicator
+              size='large'
+              hidesWhenStopped
+              animating={ this.state.isBusy }
+              color='#000'
+            />
+          </View>
+        </View>
+      </View>
     );
   }
 

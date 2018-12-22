@@ -1,4 +1,7 @@
 export default {
+  container: {
+    flex: 1,
+  },
   map: {
     flex: 1,
   },
@@ -10,4 +13,19 @@ export default {
   scoreContainer: {
     paddingLeft: 20,
   },
+  busyOverlay: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0,0,0,0.1)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  spinnerContainer: {
+    padding: 15,
+    borderRadius: 15,
+    backgroundColor: '#fff',
+  }
 };
