@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Alert } from 'react-native';
 
 export default class BaseScreen extends Component {
   constructor(props) {
@@ -28,9 +29,13 @@ export default class BaseScreen extends Component {
 
     }, (err) => {
       console.log('Request failed. Error:', err);
-
+      this.requestDidFail(err);
     }).finally(() => {
       this.setState({ isBusy: false });
     });
+  }
+
+  requestDidFail(err) {
+    Alert.alert(err);
   }
 };
