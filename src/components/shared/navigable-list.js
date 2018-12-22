@@ -31,12 +31,17 @@ export default class NavigableList extends BaseScreen {
     return Promise.reject('No request was specified for this list view.');
   }
 
+  additionalParams() {
+    return {};
+  }
+
   itemSelected(item) {
     this.setState({ selectedItem: item });
     this.requestAndNavigate(
       this.performRequest(item),
       this.nextScreen,
-      this.requestResultsParam
+      this.requestResultsParam,
+      this.additionalParams(item),
     );
   }
 
