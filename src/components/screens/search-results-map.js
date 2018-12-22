@@ -34,7 +34,7 @@ export default class SearchResultsMap extends BaseScreen {
   }
 
   headerRightButtonPressed() {
-    console.log('Header right button pressed for the MAP screen.');
+    this.fitToMarkers();
   }
 
   calloutTapped(item) {
