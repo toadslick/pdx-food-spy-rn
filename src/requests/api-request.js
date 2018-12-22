@@ -39,7 +39,7 @@ export default class APIRequest {
     let promise;
     if (CONFIG.mockRequests) {
       console.log('MOCKING response from API request.');
-      promise = Promise.resolve(this.mock);
+      promise = sendMockRequest(this.mock);
     } else {
       console.log('Sending API request. URL:', url);
       promise = fetch(url, params).then((response) => response.json());
@@ -79,3 +79,9 @@ export default class APIRequest {
     }
   }
 }
+
+function sendMockRequest(data) {
+  return new Promise(function(resolve) {
+    setTimeout(resolve.bind(this, data), CONFIG.mockRequestDuration);
+  });
+};
