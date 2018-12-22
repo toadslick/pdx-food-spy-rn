@@ -1,10 +1,14 @@
+// Filter search results so that only the
+// latest, scored inspection for each restaurant is returned.
 export default function filterSearchResults(results) {
   let filteredResultsByID = {};
 
   results.forEach(function(result) {
 
-    // Keep only results with a type of `FoodSvcSemi`.
-    if (result.type === "FoodSvcSemi") {
+    // Keep only results with:
+    //  - a type of `FoodSvcSemi`
+    //  - a score higher than zero
+    if (result.type === "FoodSvcSemi" && result.score > 0) {
       const previousResult = filteredResultsByID[result.restaurantID];
 
       // If this restaurant ID is already a key on the filter object,
