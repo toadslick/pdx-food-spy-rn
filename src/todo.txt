@@ -8,8 +8,30 @@ Changes required to also support Android:
 - update project XML to support geolocation
 - constrain layout to portrait-only
 
-General todo's and improvements:
+
+
+General todo and improvements:
 
 - move strings to i18n
 - fork react-native-geocoder to support a searchable region
   - update SearchByAddress to use region instead of appending city/state to query
+
+
+
+Pain points compared to native iOS code:
+
+- navigation
+  - difficult to reference components in one navigator from screens in another navigator
+    - for example, referencing the header bar button of a stack navigator,
+      from a screen in a tab navigator that is a child of the stack navigator
+
+- list view
+  - tapped table rows do not stay selected
+  - must manually track which table row is selected or deselected
+
+- map view
+  - no access to grouping of markers
+  - no access to markers with text content
+  - view inside callout does not sit flush with edges of callout bubble
+    - styling a tapped or selected callout is limited unless rendering a fully custom callout view
+      - this loses the "speech bubble point" and masking of the default iOS callout
