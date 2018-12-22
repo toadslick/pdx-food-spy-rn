@@ -20,13 +20,9 @@ export default class InspectionDetails extends BaseScreen {
 
   buildSections() {
     const sections = this.state.violations.map((v) => {
-      const data = [v.violationText];
-      if (v.violationComments) {
-        data.push(v.violationComments);
-      }
       return {
         title: v.lawCode,
-        data,
+        data: [v],
       };
     });
     return sections;
@@ -55,23 +51,34 @@ export default class InspectionDetails extends BaseScreen {
           renderItem={ this.renderItem.bind(this) }
           renderSectionHeader={ this.renderSectionHeader.bind(this) }
           sections={ this.buildSections() }
-          keyExtractor={ (item) => item }
         />
       </View>
     );
   }
 
   renderItem({ item, index, section }) {
+    let commentText;
+    if (item.violationComments) {
+      commentText = (
+        <Text style={ [styles.cellText, styles.cellComments] }>
+          { item.violationComments }
+        </Text>
+      );
+    }
+
     return (
-      <Text>
-        { item }
-      </Text>
+      <View style={ styles.sectionCell }>
+        <Text style={ styles.cellText }>
+          { item.violationText }
+        </Text>
+        { commentText }
+      </View>
     );
   }
 
   renderSectionHeader({ section: { title }}) {
     return (
-      <Text>
+      <Text style={ styles.sectionHeading }>
         { title }
       </Text>
     );
