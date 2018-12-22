@@ -3,6 +3,7 @@ import { Text, ActionSheetIOS } from 'react-native';
 import styles from '../../styles/navigable-list';
 import InspectionHistoryRequest from '../../requests/inspection-history';
 import NavigableList from '../shared/navigable-list';
+import { allowedSortOptions } from '../../utils/sort-options';
 
 export default class SearchResultsList extends NavigableList {
   rhr = new InspectionHistoryRequest();
@@ -19,20 +20,15 @@ export default class SearchResultsList extends NavigableList {
 
   headerRightButtonPressed() {
     const search = this.props.navigation.getParam('search');
-    const options = [
-      'Sort by Name',
-      'Sort by Score',
-      'Cancel',
-    ];
-    if (search.allowProximitySort) {
-      options.unshift('Sort by Distance');
-    }
+    const options = allowedSortOptions(search);
     ActionSheetIOS.showActionSheetWithOptions({
-      options,
+      options: options.map((option) => option.title),
       cancelButtonIndex: options.length - 1,
     },
-    (optionIndex) => {
-      console.log(`Sort option selected: ${options[optionIndex]}`);
+    (selectedOptionIndex) => {
+      const option = options[selectedOptionIndex];
+      console.log(`Sort option selected: "${option.title}"`);
+      this.setState({ items: option.sort(this.state.items) });
     });
   }
 
