@@ -7,13 +7,19 @@ import {
 
 import NavigableList from '../shared/navigable-list';
 import styles from '../../styles/screens/inspection-history';
-
-const DATE_FORMAT = 'MMM D, YYYY';
+import InspectionDetailsRequest from '../../requests/inspection-details';
 
 export default class InspectionHistory extends NavigableList {
+  request = new InspectionDetailsRequest();
+  dateFormat = 'MMM D, YYYY';
+
   get itemsParam() { return 'history'; }
   get requestResultsParam() { return 'details'; };
   get nextScreen() { return 'details'; };
+
+  performRequest(item) {
+    return this.request.fetch(item.inspectionID);
+  }
 
   render() {
     const item = this.state.items[0];
@@ -33,7 +39,7 @@ export default class InspectionHistory extends NavigableList {
   }
 
   listItemTitleText(item) {
-    return item.moment.format(DATE_FORMAT);
+    return item.moment.format(this.dateFormat);
   }
 
   renderListItemSubtitle(item) {

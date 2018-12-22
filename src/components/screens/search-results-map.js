@@ -17,7 +17,7 @@ import mapStyles from '../../styles/screens/search-results-map';
 import calloutStyles from '../../styles/navigable-list';
 
 export default class SearchResultsMap extends BaseScreen {
-  rhr = new InspectionHistoryRequest();
+  request = new InspectionHistoryRequest();
 
   constructor(props) {
     super(props);
@@ -39,7 +39,7 @@ export default class SearchResultsMap extends BaseScreen {
   }
 
   calloutTapped(item) {
-    const promise = this.rhr.fetch(item.restaurantID);
+    const promise = this.request.fetch(item.restaurantID);
     return this.requestAndNavigate(promise, 'history', 'history');
   }
 

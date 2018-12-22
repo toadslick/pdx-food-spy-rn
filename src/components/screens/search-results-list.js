@@ -6,7 +6,7 @@ import NavigableList from '../shared/navigable-list';
 import { allowedSortOptions } from '../../utils/sort-options';
 
 export default class SearchResultsList extends NavigableList {
-  rhr = new InspectionHistoryRequest();
+  request = new InspectionHistoryRequest();
 
   get itemsParam() { return 'results'; }
   get requestResultsParam() { return 'history'; };
@@ -34,7 +34,7 @@ export default class SearchResultsList extends NavigableList {
   }
 
   performRequest(item) {
-    return this.rhr.fetch(item.restaurantID);
+    return this.request.fetch(item.restaurantID);
   }
 
   render() {
