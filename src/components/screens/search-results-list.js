@@ -18,13 +18,14 @@ export default class SearchResultsList extends NavigableList {
   }
 
   headerRightButtonPressed() {
+    const search = this.props.navigation.getParam('search');
     const options = [
       'Sort by Name',
       'Sort by Score',
       'Cancel',
     ];
-    if (this.props.navigation.getParam('allowProximitySort')) {
-      options.unshift('Sort by Proximity');
+    if (search.allowProximitySort) {
+      options.unshift('Sort by Distance');
     }
     ActionSheetIOS.showActionSheetWithOptions({
       options,

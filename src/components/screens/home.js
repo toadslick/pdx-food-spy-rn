@@ -9,36 +9,37 @@ import {
   TextInput,
 } from 'react-native';
 
-import SEARCH_TYPES from '../../utils/search-types';
-import SearchByCurrentLocation from '../../requests/search-by-current-location';
+import searchOptions from '../../utils/search-options';
 import styles from '../../styles/screens/home';
 import BaseScreen from './_base';
 
 export default class HomeScreen extends BaseScreen {
-  sbcl = new SearchByCurrentLocation();
+  searchSegments = [searchOptions.address, searchOptions.name];
 
   constructor(props) {
     super(props);
-    this.state.searchTypeIndex = 0;
+    this.state.searchSegmentIndex = 0;
   }
 
-  searchTypeSelected({ nativeEvent: { selectedSegmentIndex }}) {
-    this.setState({ searchTypeIndex: selectedSegmentIndex });
+  searchSegmentSelected({ nativeEvent: { selectedSegmentIndex }}) {
+    this.setState({ searchSegmentIndex: selectedSegmentIndex });
   }
 
-  performSearch(promise, allowProximitySort) {
-    this.requestAndNavigate(promise, 'searchResults', 'results', { allowProximitySort });
+  performSearch(search, query) {
+    console.log(`Performing search. Type: "${search.title}" Query: "${query  || ''}"`);
+    const promise = search.request.fetch(query);
+    this.requestAndNavigate(promise, 'searchResults', 'results', {
+      search: search,
+    });
   }
 
   searchCurrentLocation() {
-    console.log('Performing search. Type: "Current Location"');
-    this.performSearch(this.sbcl.fetch(), true);
+    this.performSearch(searchOptions.proximity);
   }
 
   searchQuerySubmitted({ nativeEvent: { text }}) {
-    const search = SEARCH_TYPES[this.state.searchTypeIndex];
-    console.log(`Performing search. Type: "${search.title}" Query: "${text}"`);
-    this.performSearch(search.request.fetch(text), false);
+    const search = this.searchSegments[this.state.searchSegmentIndex];
+    this.performSearch(search, text);
   }
 
   render() {
@@ -53,14 +54,14 @@ export default class HomeScreen extends BaseScreen {
         <View style={ styles.fieldset }>
           <SegmentedControlIOS
             style={ styles.searchOptions }
-            values={ SEARCH_TYPES.map((option) => option.title) }
-            selectedIndex={ this.state.searchTypeIndex }
-            onChange={ this.searchTypeSelected.bind(this) }
+            values={ this.searchSegments.map((option) => option.title) }
+            selectedIndex={ this.state.searchSegmentIndex }
+            onChange={ this.searchSegmentSelected.bind(this) }
           />
           <TextInput
             style={ styles.searchQuery }
             onSubmitEditing={ this.searchQuerySubmitted.bind(this) }
-            placeholder={ SEARCH_TYPES[this.state.searchTypeIndex].placeholder }
+            placeholder={ this.searchSegments[this.state.searchSegmentIndex].placeholder }
             editable={ !this.state.isBusy }
             enablesReturnKeyAutomatically
             placeholderTextColor={ styles.searchQuery.borderColor }
@@ -75,7 +76,7 @@ export default class HomeScreen extends BaseScreen {
         <View style={ styles.fieldset }>
           <Button
             style={ styles.button }
-            title='Search My Current Location'
+            title={ searchOptions.proximity.placeholder }
             onPress={ this.searchCurrentLocation.bind(this) }
             disabled={ this.state.isBusy }
           />
