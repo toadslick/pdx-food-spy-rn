@@ -2,28 +2,34 @@ const options = {
   name: {
     title: 'Sort by Name',
     allow: () => true,
-    sort: (results) => {
-      return results;
+    sorter: (a, b) => {
+      const an = a.name.toUpperCase();
+      const bn = b.name.toUpperCase();
+      return an.localeCompare(bn);
     },
   },
   score: {
     title: 'Sort by Score',
     allow: () => true,
-    sort: (results) => {
-      return results;
+    sorter: (a, b) => {
+      if (a.score < b.score) { return  1; }
+      if (a.score > b.score) { return -1; }
+      return 0;
     },
   },
   distance: {
     title: 'Sort by Distance',
     allow: (search) => search.allowProximitySort,
-    sort: (results) => {
-      return results;
+    sorter: (a, b) => {
+      if (a.distance > b.distance) { return  1; }
+      if (a.distance < b.distance) { return -1; }
+      return 0;
     },
   },
   cancel: {
     title: 'Cancel',
     allow: () => true,
-    sort: (results) => results,
+    sorter: () => 0,
   },
 };
 

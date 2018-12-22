@@ -27,8 +27,9 @@ export default class SearchResultsList extends NavigableList {
     },
     (selectedOptionIndex) => {
       const option = options[selectedOptionIndex];
+      const sorted = this.state.items.sort(option.sorter);
       console.log(`Sort option selected: "${option.title}"`);
-      this.setState({ items: option.sort(this.state.items) });
+      this.setState({ items: sorted });
     });
   }
 
