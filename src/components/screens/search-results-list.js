@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text } from 'react-native';
+import { Text, ActionSheetIOS } from 'react-native';
 import styles from '../../styles/navigable-list';
 import InspectionHistoryRequest from '../../requests/inspection-history';
 import NavigableList from '../shared/navigable-list';
@@ -18,7 +18,21 @@ export default class SearchResultsList extends NavigableList {
   }
 
   headerRightButtonPressed() {
-    console.log('Header right button pressed for the LIST screen.');
+    const options = [
+      'Sort by Name',
+      'Sort by Score',
+      'Cancel',
+    ];
+    if (this.props.navigation.getParam('allowProximitySort')) {
+      options.unshift('Sort by Proximity');
+    }
+    ActionSheetIOS.showActionSheetWithOptions({
+      options,
+      cancelButtonIndex: options.length - 1,
+    },
+    (optionIndex) => {
+      console.log(`Sort option selected: ${options[optionIndex]}`);
+    });
   }
 
   performRequest(item) {

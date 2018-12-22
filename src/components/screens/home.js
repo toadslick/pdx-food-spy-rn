@@ -26,19 +26,19 @@ export default class HomeScreen extends BaseScreen {
     this.setState({ searchTypeIndex: selectedSegmentIndex });
   }
 
-  performSearch(promise) {
-    this.requestAndNavigate(promise, 'searchResults', 'results');
+  performSearch(promise, allowProximitySort) {
+    this.requestAndNavigate(promise, 'searchResults', 'results', { allowProximitySort });
   }
 
   searchCurrentLocation() {
     console.log('Performing search. Type: "Current Location"');
-    this.performSearch(this.sbcl.fetch());
+    this.performSearch(this.sbcl.fetch(), true);
   }
 
   searchQuerySubmitted({ nativeEvent: { text }}) {
     const search = SEARCH_TYPES[this.state.searchTypeIndex];
     console.log(`Performing search. Type: "${search.title}" Query: "${text}"`);
-    this.performSearch(search.request.fetch(text));
+    this.performSearch(search.request.fetch(text), false);
   }
 
   render() {

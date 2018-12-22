@@ -15,14 +15,16 @@ export default class BaseScreen extends Component {
   willFocus() {}
   willBlur() {}
 
-  requestAndNavigate(promise, screenKey, paramKey) {
+  requestAndNavigate(promise, screenKey, paramKey, otherParams) {
     if (this.state.isBusy) { return; }
 
     this.setState({ isBusy: true });
 
     promise.then((data) => {
       console.log('Request was successful. Results:', data);
-      this.props.navigation.navigate(screenKey, { [paramKey]: data });
+      const params = { [paramKey]: data };
+      Object.assign(params, otherParams);
+      this.props.navigation.navigate(screenKey, params);
 
     }, (err) => {
       console.log('Request failed. Error:', err);

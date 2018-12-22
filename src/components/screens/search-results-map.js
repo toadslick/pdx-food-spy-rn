@@ -43,6 +43,7 @@ export default class SearchResultsMap extends BaseScreen {
   }
 
   fitToMarkers() {
+    console.log('Fitting map to search results.')
     const markerIdentifiers = this.state.results.map(result => result.key);
     this.mapView.fitToSuppliedMarkers(markerIdentifiers);
   }
