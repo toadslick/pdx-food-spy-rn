@@ -27,7 +27,10 @@ export default class HomeScreen extends BaseScreen {
 
   performSearch(search, query) {
     console.log(`Performing search. Type: "${search.title}" Query: "${query  || ''}"`);
-    const promise = search.request.fetch(query);
+    const promise = search.request.fetch(query).then((results) => {
+      results.sort(search.initialSort.sorter);
+      return results;
+    });
     this.requestAndNavigate(promise, 'searchResults', 'results', {
       search: search,
     });
