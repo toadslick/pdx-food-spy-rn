@@ -19,14 +19,21 @@ export default class InspectionDetails extends BaseScreen {
 
   render() {
     const inspection = this.state.inspection;
+    const scoreStyle = { color: inspection.scoreColor };
+
     return (
       <View style={ styles.container }>
         <View style={ styles.header }>
-          <Text style={ styles.title }>
-            { inspection.name }
-          </Text>
-          <Text style={ styles.subtitle }>
-            { inspection.moment.format(this.dateFormat) }
+          <View style={ styles.headerTextContainer }>
+            <Text style={ styles.title }>
+              { inspection.name }
+            </Text>
+            <Text style={ styles.subtitle }>
+              { inspection.moment.format(this.dateFormat) }
+            </Text>
+          </View>
+          <Text style={ [styles.score, scoreStyle] }>
+            { inspection.score }
           </Text>
         </View>
       </View>

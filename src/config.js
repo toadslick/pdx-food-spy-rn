@@ -1,4 +1,4 @@
 export default {
   mockRequests: true,
-  mockRequestDuration: 1000,
+  mockRequestDuration: 0,
 };
