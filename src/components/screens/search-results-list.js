@@ -9,8 +9,8 @@ export default class SearchResultsList extends NavigableList {
   request = new InspectionHistoryRequest();
 
   get itemsParam() { return 'results'; }
-  get requestResultsParam() { return 'history'; };
-  get nextScreen() { return 'history'; };
+  get requestResultsParam() { return 'history'; }
+  get nextScreen() { return 'history'; }
 
   willFocus() {
     this.props.navigation.dangerouslyGetParent().setParams({

@@ -14,8 +14,8 @@ export default class InspectionHistory extends NavigableList {
   dateFormat = 'MMM D, YYYY';
 
   get itemsParam() { return 'history'; }
-  get requestResultsParam() { return 'details'; };
-  get nextScreen() { return 'details'; };
+  get requestResultsParam() { return 'details'; }
+  get nextScreen() { return 'details'; }
 
   performRequest(item) {
     return this.request.fetch(item.inspectionID);
