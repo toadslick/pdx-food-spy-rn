@@ -23,7 +23,6 @@ const SearchResultsTabs = createBottomTabNavigator(navigatorConfig, {
   },
 });
 
-
 SearchResultsTabs.navigationOptions = function({ navigation }) {
   const { routeName } = navigation.state.routes[navigation.state.index];
   const config = tabConfig[routeName];

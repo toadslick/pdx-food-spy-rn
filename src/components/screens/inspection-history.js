@@ -11,10 +11,6 @@ import styles from '../../styles/screens/inspection-history';
 const DATE_FORMAT = 'MMM D, YYYY';
 
 export default class InspectionHistory extends NavigableList {
-  static navigationOptions = {
-    headerTitle: 'Inspection History',
-  }
-
   get itemsParam() { return 'history'; }
   get requestResultsParam() { return 'details'; };
   get nextScreen() { return 'details'; };
