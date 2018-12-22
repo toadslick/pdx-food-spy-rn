@@ -23,18 +23,27 @@ const SearchResultsTabs = createBottomTabNavigator(navigatorConfig, {
   },
 });
 
-SearchResultsTabs.navigationOptions = ({ navigation }) => {
+
+SearchResultsTabs.navigationOptions = function({ navigation }) {
   const { routeName } = navigation.state.routes[navigation.state.index];
   const config = tabConfig[routeName];
+
   return {
     headerTitle: 'Search Results',
     headerRight: (
       <Button
         title={ config.rightButtonTitle }
-        onPress={ () => {} }
+        onPress={ headerRightButtonPressed.bind(this, navigation) }
       />
     ),
   };
+};
+
+function headerRightButtonPressed(navigation) {
+  const tabScreen = navigation.getParam('activeTabScreen');
+  if (tabScreen && tabScreen.headerRightButtonPressed) {
+    tabScreen.headerRightButtonPressed.bind(tabScreen)();
+  }
 };
 
 export default SearchResultsTabs;

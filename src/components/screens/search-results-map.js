@@ -27,6 +27,16 @@ export default class SearchResultsMap extends BaseScreen {
     this.fitToMarkers();
   }
 
+  willFocus() {
+    this.props.navigation.dangerouslyGetParent().setParams({
+      activeTabScreen: this,
+    });
+  }
+
+  headerRightButtonPressed() {
+    console.log('Header right button pressed for the MAP screen.');
+  }
+
   calloutTapped(item) {
     const promise = this.rhr.fetch(item.restaurantID);
     return this.requestAndNavigate(promise, 'history', 'history');

@@ -11,6 +11,16 @@ export default class SearchResultsList extends NavigableList {
   get requestResultsParam() { return 'history'; };
   get nextScreen() { return 'history'; };
 
+  willFocus() {
+    this.props.navigation.dangerouslyGetParent().setParams({
+      activeTabScreen: this,
+    });
+  }
+
+  headerRightButtonPressed() {
+    console.log('Header right button pressed for the LIST screen.');
+  }
+
   performRequest(item) {
     return this.rhr.fetch(item.restaurantID);
   }
