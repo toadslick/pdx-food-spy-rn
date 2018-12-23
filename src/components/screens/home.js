@@ -14,6 +14,7 @@ import {
 import searchOptions from '../../utils/search-options';
 import styles from '../../styles/screens/home';
 import BaseScreen from './_base';
+import SegmentOrPicker from '../controls/segment-or-picker';
 
 export default class HomeScreen extends BaseScreen {
   pickerSearchOptions = [searchOptions.address, searchOptions.name];
@@ -23,11 +24,7 @@ export default class HomeScreen extends BaseScreen {
     this.state.optionIndex = 0;
   }
 
-  optionSelectedIOS({ nativeEvent: { selectedSegmentIndex }}) {
-    this.setState({ optionIndex: selectedSegmentIndex });
-  }
-
-  optionSelectedAndroid(value, index) {
+  optionSelected(index) {
     this.setState({ optionIndex: index });
   }
 
@@ -61,7 +58,12 @@ export default class HomeScreen extends BaseScreen {
           Search by:
         </Text>
         <View style={ styles.fieldset }>
-          { this.renderPicker() }
+          <SegmentOrPicker
+            values={ this.pickerSearchOptions.map((option) => option.title) }
+            selectedIndex={ this.state.optionIndex }
+            style={ styles.searchOptions }
+            onChange={ this.optionSelected.bind(this) }
+          />
           <TextInput
             style={ styles.searchQuery }
             onSubmitEditing={ this.searchQuerySubmitted.bind(this) }
@@ -92,45 +94,6 @@ export default class HomeScreen extends BaseScreen {
           animating={ this.state.isBusy }
         />
       </View>
-    );
-  }
-
-  renderPicker() {
-    return Platform.select({
-      ios: this.renderPickerIOS(),
-      android: this.renderPickerAndroid(),
-    });
-  }
-
-  renderPickerIOS() {
-    const values = this.pickerSearchOptions.map((option) => option.title);
-    return (
-      <SegmentedControlIOS
-        style={ styles.searchOptions }
-        values={ values }
-        selectedIndex={ this.state.optionIndex }
-        onChange={ this.optionSelectedIOS.bind(this) }
-      />
-    );
-  }
-
-  renderPickerAndroid() {
-    const options = this.pickerSearchOptions.map((option, index) => {
-      return (
-        <Picker.Item
-          label={ option.title }
-          value={ index }
-          key={ index }
-        />
-      );
-    });
-    return (
-      <Picker
-        selectedValue={ this.state.optionIndex }
-        style={ styles.searchOptions }
-        onValueChange={ this.optionSelectedAndroid.bind(this) }>
-        { options }
-      </Picker>
     );
   }
 }
