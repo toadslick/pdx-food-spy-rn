@@ -22,6 +22,6 @@ export default class SearchByCurrentLocationRequest extends SearchByAddress {
   }
 
   buildURL({ coords: { latitude, longitude }}) {
-    return `${this.rootURL}near/${longitude},${latitude}`;
+    return `${CONFIG.apiRootURL}near/${longitude},${latitude}`;
   }
 }

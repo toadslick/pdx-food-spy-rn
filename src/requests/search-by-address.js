@@ -22,14 +22,14 @@ export default class SearchByAddressRequest extends APIRequest {
   }
 
   buildURL([{ position: { lat, lng }}]) {
-    return `${this.rootURL}near/${lng},${lat}`;
+    return `${CONFIG.apiRootURL}near/${lng},${lat}`;
   }
 
   buildQueryParams() {
     return {
-      since: '2014-01-01',
-      limit: 50,
-      distance: 0.25,
+      since: CONFIG.searchSinceDate,
+      limit: CONFIG.searchResultLimit,
+      distance: CONFIG.searchRadius,
     };
   }
 

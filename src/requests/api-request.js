@@ -1,7 +1,6 @@
 import CONFIG from '../config';
 
 export default class APIRequest {
-  rootURL = 'http://api.civicapps.org/restaurant-inspections/';
 
   // The JSON object returned by this request when mocking is enabled in the config.
   mock = {};
@@ -10,7 +9,7 @@ export default class APIRequest {
   preflight(query) { return Promise.resolve(query); }
 
   // Build the request URL from the given query.
-  buildURL(query) { return this.rootURL; }
+  buildURL(query) { return CONFIG.apiRootURL; }
 
   // Build the request query parameters from the given query.
   buildQueryParams(query) { return {}; }

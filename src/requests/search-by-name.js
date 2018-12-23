@@ -2,6 +2,7 @@ import APIRequest from './api-request';
 import SearchResult from '../models/search-result';
 import filterSearchResults from '../utils/filter-search-results';
 import mockResponse from '../mocks/search-results';
+import CONFIG from '../config';
 
 export default class SearchByNameRequest extends APIRequest {
   mock = mockResponse;
@@ -9,8 +10,8 @@ export default class SearchByNameRequest extends APIRequest {
   buildQueryParams(query) {
     return {
       restaurant_name: String(query).trim(),
-      since: '2014-01-01',
-      limit: 50,
+      since: CONFIG.searchSinceDate,
+      limit: CONFIG.searchResultLimit,
     };
   }
 
