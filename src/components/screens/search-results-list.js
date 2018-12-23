@@ -20,6 +20,7 @@ export default class SearchResultsList extends NavigableList {
   }
 
   willFocus() {
+    this.setState({ selectedItem: null });
     this.props.navigation.dangerouslyGetParent().setParams({
       activeTabScreen: this,
     });
