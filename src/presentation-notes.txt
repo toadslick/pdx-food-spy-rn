@@ -1,0 +1,68 @@
+Writing the same app in both Objective-C and React Native
+
+App features:
+  - search for Portland restaurant inspections by:
+    - address
+    - name
+    - current location
+  - view search results in list or map view
+    - list can be sorted by
+      - name
+      - score
+      - distance from coordinate
+    - map "reset" button centers map on result markers
+  - view all the inspections for a single restaurant
+  - view detailed notes for a single inspection
+
+Goals
+  - objc project uses no external libraries, only what is provided by Cocoa/UIKit
+    - RN project uses all the packages
+      - Moment.js is the jQuery of datetimes
+  - RN project mimics style of iOS app, but not pixel-perfectly
+
+Trade-offs of React Native
+  - ease of implementation vs. robustness of feature set
+    - example: iOS map view
+      - text in map markers
+      - titles and subtitles beneath map markers
+      - grouping to avoid cluttering of map
+      - masking of callout view
+    - example: address geocoding
+      - more configurable in iOS
+        - limit address geocoding to coordinate region
+    - example: current location
+      - single line of code in React Native
+        - navigator.geolocation.getCurrentPosition
+        - automatically handles permission requests
+    - example: iOS dynamic type
+  - not all components render in native styles by default
+    - FlatList and SectionList
+  - code-branching on OS-specific features
+    - SegmentControl and ActionSheet
+  - lacking full ES6 support
+    - example: private class method syntax
+      - still possible by defining methods outside of the class
+  - ref vs. IBOutlet
+  - can still cause the app to crash
+    - example: no `options` property for iOS ActionSheet
+
+Benefits of React Native
+  - async: promises vs. delegates
+    - promises chain easily and provide a universal language for success and failure
+      - .then, .catch, .finally
+  - logging: chrome console vs. xcode logs
+    - browser console is great for logging classes & objects
+    - pause on exceptions
+  - libraries: Yarn/NPM vs. CocoaPods
+    - `react-native link` means rarely having to touch native project files
+    - can use all NPM packages, not just RN-specific
+    - Yarn is already built in, unlike CocoaPods
+  - flexbox vs. constraints
+      - storyboards are nice tho
+
+Things I didn't do
+  - unit tests
+  - accessibility
+  - global state management (Redux, etc)
+
+Both projects are available on GitHub
