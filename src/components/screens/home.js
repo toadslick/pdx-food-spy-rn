@@ -7,6 +7,8 @@ import {
   SegmentedControlIOS,
   ActivityIndicator,
   TextInput,
+  Platform,
+  Picker,
 } from 'react-native';
 
 import searchOptions from '../../utils/search-options';
@@ -14,15 +16,19 @@ import styles from '../../styles/screens/home';
 import BaseScreen from './_base';
 
 export default class HomeScreen extends BaseScreen {
-  searchSegments = [searchOptions.address, searchOptions.name];
+  pickerSearchOptions = [searchOptions.address, searchOptions.name];
 
   constructor(props) {
     super(props);
-    this.state.searchSegmentIndex = 0;
+    this.state.optionIndex = 0;
   }
 
-  searchSegmentSelected({ nativeEvent: { selectedSegmentIndex }}) {
-    this.setState({ searchSegmentIndex: selectedSegmentIndex });
+  optionSelectedIOS({ nativeEvent: { selectedSegmentIndex }}) {
+    this.setState({ optionIndex: selectedSegmentIndex });
+  }
+
+  optionSelectedAndroid(value, index) {
+    this.setState({ optionIndex: index });
   }
 
   performSearch(search, query) {
@@ -41,7 +47,7 @@ export default class HomeScreen extends BaseScreen {
   }
 
   searchQuerySubmitted({ nativeEvent: { text }}) {
-    const search = this.searchSegments[this.state.searchSegmentIndex];
+    const search = this.pickerSearchOptions[this.state.optionIndex];
     this.performSearch(search, text);
   }
 
@@ -55,16 +61,11 @@ export default class HomeScreen extends BaseScreen {
           Search by:
         </Text>
         <View style={ styles.fieldset }>
-          <SegmentedControlIOS
-            style={ styles.searchOptions }
-            values={ this.searchSegments.map((option) => option.title) }
-            selectedIndex={ this.state.searchSegmentIndex }
-            onChange={ this.searchSegmentSelected.bind(this) }
-          />
+          { this.renderPicker() }
           <TextInput
             style={ styles.searchQuery }
             onSubmitEditing={ this.searchQuerySubmitted.bind(this) }
-            placeholder={ this.searchSegments[this.state.searchSegmentIndex].placeholder }
+            placeholder={ this.pickerSearchOptions[this.state.optionIndex].placeholder }
             editable={ !this.state.isBusy }
             enablesReturnKeyAutomatically
             placeholderTextColor={ styles.searchQuery.borderColor }
@@ -91,6 +92,45 @@ export default class HomeScreen extends BaseScreen {
           animating={ this.state.isBusy }
         />
       </View>
+    );
+  }
+
+  renderPicker() {
+    return Platform.select({
+      ios: this.renderPickerIOS(),
+      android: this.renderPickerAndroid(),
+    });
+  }
+
+  renderPickerIOS() {
+    const values = this.pickerSearchOptions.map((option) => option.title);
+    return (
+      <SegmentedControlIOS
+        style={ styles.searchOptions }
+        values={ values }
+        selectedIndex={ this.state.optionIndex }
+        onChange={ this.optionSelectedIOS.bind(this) }
+      />
+    );
+  }
+
+  renderPickerAndroid() {
+    const options = this.pickerSearchOptions.map((option, index) => {
+      return (
+        <Picker.Item
+          label={ option.title }
+          value={ index }
+          key={ index }
+        />
+      );
+    });
+    return (
+      <Picker
+        selectedValue={ this.state.optionIndex }
+        style={ styles.searchOptions }
+        onValueChange={ this.optionSelectedAndroid.bind(this) }>
+        { options }
+      </Picker>
     );
   }
 }
