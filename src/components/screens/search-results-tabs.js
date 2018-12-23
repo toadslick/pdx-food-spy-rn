@@ -1,5 +1,12 @@
 import React from 'react';
-import { Button, Image } from 'react-native';
+
+import {
+  Button,
+  Image,
+  View,
+  Platform
+} from 'react-native';
+
 import { createBottomTabNavigator } from 'react-navigation';
 import tabConfig from '../../utils/tab-config';
 
@@ -26,14 +33,17 @@ const SearchResultsTabs = createBottomTabNavigator(navigatorConfig, {
 SearchResultsTabs.navigationOptions = function({ navigation }) {
   const { routeName } = navigation.state.routes[navigation.state.index];
   const config = tabConfig[routeName];
+  const buttonPadding = Platform.select({ ios: 0, android: 10 });
 
   return {
     headerTitle: 'Search Results',
     headerRight: (
-      <Button
-        title={ config.rightButtonTitle }
-        onPress={ headerRightButtonPressed.bind(this, navigation) }
-      />
+      <View style={{ paddingRight: buttonPadding }}>
+        <Button
+          title={ config.rightButtonTitle }
+          onPress={ headerRightButtonPressed.bind(this, navigation) }
+        />
+      </View>
     ),
   };
 };
