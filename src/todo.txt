@@ -1,11 +1,8 @@
 While in active development, only iOS is being supported on this project.
 Changes required to also support Android:
 
-- install react-navigation android
-- install react-native-geocoder android
-- replace ios-only SegmentControl in components/screens/home
 - replace ios-only ActionSheet in components/screens/search-results-list
-- update project XML to support geolocation
+- update gradle to support geolocation
 - constrain layout to portrait-only for android
 
 
