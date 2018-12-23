@@ -1,6 +1,7 @@
 import SearchResultsList from '../components/screens/search-results-list';
 import SearchResultsMap from '../components/screens/search-results-map';
 
+// Return the options for the tab navigator used when displaying search results.
 export default {
 	list: {
 		screen: SearchResultsList,

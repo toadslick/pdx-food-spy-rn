@@ -2,6 +2,8 @@ import CONFIG from '../config';
 
 export default class APIRequest {
   rootURL = 'http://api.civicapps.org/restaurant-inspections/';
+
+  // The JSON object returned by this request when mocking is enabled in the config.
   mock = {};
 
   // Used to handle async behavior needed before the request, such as geocoding.

@@ -1,3 +1,5 @@
+// Returns the options by which a list of inspections may be sorted.
+
 const options = {
   name: {
     title: 'Sort by Name',

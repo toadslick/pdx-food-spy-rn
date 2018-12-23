@@ -38,6 +38,13 @@ SearchResultsTabs.navigationOptions = function({ navigation }) {
   };
 };
 
+// The right-hand button of the header belongs to the stack navigator,
+// but needs to be able to communicate with screens of the tab navigator that
+// is a child of the stack navigator.
+//
+// To do this, tab navigator screens set the `activeTabScreen` param of the
+// stack navigator with a reference to themselves. Each screen that does this
+// must have a `headerRightButtonPressed` function defined in their class.
 function headerRightButtonPressed(navigation) {
   const tabScreen = navigation.getParam('activeTabScreen');
   if (tabScreen && tabScreen.headerRightButtonPressed) {

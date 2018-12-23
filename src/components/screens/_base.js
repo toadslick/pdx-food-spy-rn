@@ -1,3 +1,16 @@
+// All screen components should inherit from this class, which provides this shared behavior:
+//
+// - state.isBusy : indicates when the screen is performing async behavior
+//     such as making an HTTP request.
+//
+// - willFocus() : function called before the screen becomes visible.
+// - willBlur() : function called before the screen is hidden from view.
+//
+// - requestAndNavigate : after performing a successful API request.
+//     navigate to the next screen and pass it the results as a param.
+// - requestDidFail : called when an API request fails or returns empty results.
+//     By default this renders an alert modal with an error message.
+
 import React, { Component } from 'react';
 import { Alert } from 'react-native';
 

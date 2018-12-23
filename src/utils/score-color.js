@@ -10,6 +10,8 @@ const gradient = new Gradient([
   [ 61, 130,  5],
 ]);
 
+// Return the hex color for a given score number,
+// as a percent of the distance across a gradient of colors.
 export default function scoreColor(score) {
   const normalScore = Math.max(minimumScore, Math.min(maximumScore, score));
   const percent = (normalScore - minimumScore) / (maximumScore - minimumScore);

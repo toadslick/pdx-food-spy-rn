@@ -12,6 +12,8 @@ import styles from '../../styles/navigable-list';
 import ListSeparator from './list-separator';
 import BaseScreen from '../screens/_base';
 
+// This class should be extended by any screen which displays a flat list
+// and allows the user to select a list item to navigate to the next screen.
 export default class NavigableList extends BaseScreen {
   constructor(props) {
     super(props);
@@ -19,20 +21,30 @@ export default class NavigableList extends BaseScreen {
     this.state.selectedItem = null;
   }
 
-  get itemsParam()          { return null; }
-  get requestResultsParam() { return null; };
-  get nextScreen()          { return null; };
+  // The name of the param of the navigator which contains the items to be displayed.
+  get itemsParam() { return null; }
 
+  // The name of the param on the next screen to which API results will be passed.
+  get requestResultsParam() { return null; };
+
+  // The name of the next screen to navigate to.
+  get nextScreen() { return null; };
+
+  // When the user returns to this list (using the back button, for example),
+  // deselect the currently selected list item.
   willFocus() {
     this.setState({ selectedItem: null });
   }
 
-  performRequest(item) {
-    return Promise.reject('No request was specified for this list view.');
-  }
-
+  // An object of additional params (beyond the API request results),
+  // that will be passed to the next screen.
   additionalParams() {
     return {};
+  }
+
+  // Returns the promise of the API request performed when a list item was selected.
+  performRequest(selectedItem) {
+    return Promise.reject('No request was specified for this list view.');
   }
 
   itemSelected(item) {

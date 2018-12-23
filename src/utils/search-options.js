@@ -4,6 +4,7 @@ import SearchByCurrentLocation from '../requests/search-by-current-location';
 
 import sortOptions from './sort-options';
 
+// The options by which the user may search for inspections.
 export default {
   address: {
     title: 'Street Address',
@@ -16,6 +17,8 @@ export default {
     title: 'Restaurant Name',
     placeholder: 'Enter a Restaurant Name',
     request: new SearchByNameRequest(),
+    // Disable proximity sorting for searches based on a restaurant name,
+    // because the API does not provide distance data unless searching by latlong coords.
     allowProximitySort: false,
     initialSort: sortOptions.name,
   },

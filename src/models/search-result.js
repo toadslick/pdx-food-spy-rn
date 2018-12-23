@@ -2,6 +2,8 @@ import moment from 'moment';
 import config from '../config';
 import scoreColor from '../utils/score-color';
 
+// Represents a single result returned by the API
+// when searching for restaurant inspections.
 export default class SearchResult {
   name         ;
   address      ;

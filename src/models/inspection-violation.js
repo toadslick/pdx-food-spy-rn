@@ -1,3 +1,4 @@
+// Represents a single violation listed for an inspection.
 export default class InspectionViolation {
 
   static fromJSON(object) {
