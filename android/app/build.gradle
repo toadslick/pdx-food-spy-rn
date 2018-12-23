@@ -138,7 +138,11 @@ android {
 
 dependencies {
     compile project(':react-native-geocoder')
-    compile project(':react-native-maps')
+    implementation(project(':react-native-maps')) {
+        exclude group: 'com.android.support'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-v4'
+    }
     compile project(':react-native-gesture-handler')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
