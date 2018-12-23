@@ -9,6 +9,7 @@ import {
   TextInput,
   Platform,
   Picker,
+  SafeAreaView,
 } from 'react-native';
 
 import searchOptions from '../../utils/search-options';
