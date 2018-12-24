@@ -22,6 +22,10 @@ export default {
     backgroundColor: 'rgba(0,0,0,0.1)',
     justifyContent: 'center',
     alignItems: 'center',
+    height: 0,
+  },
+  visibleBusyOverlay: {
+    height: 'auto',
   },
   spinnerContainer: {
     padding: 15,

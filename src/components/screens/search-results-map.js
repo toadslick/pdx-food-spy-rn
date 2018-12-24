@@ -4,6 +4,7 @@ import {
   Text,
   View,
   ActivityIndicator,
+  Platform,
 } from 'react-native';
 
 import MapView, {
@@ -24,10 +25,6 @@ export default class SearchResultsMap extends BaseScreen {
     this.state.results = props.navigation.getParam('results');
   }
 
-  componentDidMount() {
-    this.fitToMarkers();
-  }
-
   willFocus() {
     this.props.navigation.dangerouslyGetParent().setParams({
       activeTabScreen: this,
@@ -35,7 +32,7 @@ export default class SearchResultsMap extends BaseScreen {
   }
 
   headerRightButtonPressed() {
-    this.fitToMarkers();
+    this.fitToMarkers(true);
   }
 
   calloutTapped(item) {
@@ -43,22 +40,30 @@ export default class SearchResultsMap extends BaseScreen {
     return this.requestAndNavigate(promise, 'history', 'history');
   }
 
-  fitToMarkers() {
+  fitToMarkers(isAnimated) {
     console.log('Fitting map to search results.')
     const markerIdentifiers = this.state.results.map(result => result.key);
-    this.mapView.fitToSuppliedMarkers(markerIdentifiers);
+    this.mapView.fitToSuppliedMarkers(markerIdentifiers, {
+      edgePadding: { top: 100, left: 20, right: 20, bottom: 5, },
+      animated: isAnimated,
+    });
   }
 
   render() {
-    const overlayStyle = {};
-    if (!this.state.isBusy) {
-      overlayStyle.display = 'none';
+    const overlayStyles = [mapStyles.busyOverlay];
+    if (this.state.isBusy) {
+      overlayStyles.push(mapStyles.visibleBusyOverlay);
     }
+
+    const mapType = Platform.select({
+      android: 'standard',
+      ios: 'mutedStandard',
+    });
 
     return (
       <View style={ mapStyles.container }>
         <MapView
-          mapType='mutedStandard'
+          mapType={ mapType }
           showsPointsOfInterest={ false }
           showsBuildings={ false }
           showsTraffic={ false }
@@ -67,10 +72,11 @@ export default class SearchResultsMap extends BaseScreen {
           showsUserLocation={ true }
           style={ mapStyles.map }
           ref={ (c) => this.mapView = c }
+          onMapReady={ this.fitToMarkers.bind(this, false) }
         >
           { this.renderMapMarkers() }
         </MapView>
-        <View style={ [mapStyles.busyOverlay, overlayStyle] }>
+        <View style={ overlayStyles }>
           <View style= { mapStyles.spinnerContainer }>
             <ActivityIndicator
               size='large'
@@ -98,6 +104,7 @@ export default class SearchResultsMap extends BaseScreen {
           key={ result.key }
           identifier={ result.key }
           pinColor={ result.scoreColor }
+          onMapReady
         >
           <Callout
             style={ mapStyles.callout }
