@@ -78,7 +78,7 @@ export default class HomeScreen extends BaseScreen {
           />
         </View>
         <Text style={ styles.label }>
-          or...
+          or
         </Text>
         <View style={ styles.fieldset }>
           <Button
