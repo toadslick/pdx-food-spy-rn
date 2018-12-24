@@ -1,7 +1,6 @@
 export default {
   container: {
     flex: 1,
-    backgroundColor: '#eee',
   },
   header: {
     flexGrow: 0,
@@ -12,6 +11,7 @@ export default {
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
+    elevation: 3,
   },
   headerTextContainer: {
     flex: 1,
@@ -49,5 +49,16 @@ export default {
   cellComments: {
     paddingTop: 0,
     color: '#d33',
+  },
+  emptySetContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+    height: '100%',
+  },
+  emptySetMessage: {
+    fontSize: 20,
+    textAlign: 'center',
   },
 }

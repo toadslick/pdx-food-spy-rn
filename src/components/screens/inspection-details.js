@@ -19,18 +19,24 @@ export default class InspectionDetails extends BaseScreen {
   }
 
   buildSections() {
-    const sections = this.state.violations.map((v) => {
+    return this.state.violations.map((v) => {
       return {
         title: v.lawCode,
         data: [v],
       };
     });
-    return sections;
   }
 
   render() {
-    const inspection = this.state.inspection;
+    const { inspection, violations } = this.state;
     const scoreStyle = { color: inspection.scoreColor };
+
+    let listView;
+    if (violations.length) {
+      listView = this.renderList();
+    } else {
+      listView = this.renderEmptySet();
+    }
 
     return (
       <View style={ styles.container }>
@@ -47,12 +53,18 @@ export default class InspectionDetails extends BaseScreen {
             { inspection.score }
           </Text>
         </View>
-        <SectionList
-          renderItem={ this.renderItem.bind(this) }
-          renderSectionHeader={ this.renderSectionHeader.bind(this) }
-          sections={ this.buildSections() }
-        />
+        { listView }
       </View>
+    );
+  }
+
+  renderList() {
+    return (
+      <SectionList
+        renderItem={ this.renderItem.bind(this) }
+        renderSectionHeader={ this.renderSectionHeader.bind(this) }
+        sections={ this.buildSections() }
+      />
     );
   }
 
@@ -81,6 +93,16 @@ export default class InspectionDetails extends BaseScreen {
       <Text style={ styles.sectionHeading }>
         { title }
       </Text>
+    );
+  }
+
+  renderEmptySet() {
+    return (
+      <View style={ styles.emptySetContainer }>
+        <Text style={ styles.emptySetMessage }>
+          No violations were recorded for this inspection.
+        </Text>
+      </View>
     );
   }
 }

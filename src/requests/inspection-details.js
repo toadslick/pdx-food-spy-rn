@@ -13,4 +13,13 @@ export default class InspectionDetailsRequest extends APIRequest {
   deserialize(object) {
     return object.violations.map(InspectionViolation.fromJSON);
   }
+
+  // Exclude any violations for which the law code or violation text is blank.
+  // While grouped under "violations", these entries represent
+  // generally uninteresting, or actually blank violations.
+  postflight(violations) {
+    return violations.filter(function(v) {
+      return v.lawCode && v.violationText;
+    });
+  }
 }

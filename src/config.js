@@ -9,7 +9,7 @@ export default {
 
   apiRootURL: 'http://api.civicapps.org/restaurant-inspections/',
 
-  mockRequests: true,
+  mockRequests: false,
   mockRequestDuration: 0,
 
 };

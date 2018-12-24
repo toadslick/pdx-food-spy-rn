@@ -8,6 +8,7 @@ export default {
     padding: 15,
     borderBottomWidth: 1,
     borderColor: '#ddd',
+    elevation: 3,
   },
   title: {
     fontWeight: '600',
